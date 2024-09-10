@@ -4,7 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useFonts, Tomorrow_400Regular, Tomorrow_700Bold } from '@expo-google-fonts/tomorrow';
 import tailwind from '../../hooks/useTailwind';
 
-export default function LoginScreen({ navigation }: any) {
+export default function RegisterScreen({ navigation }: any) {
   const { control, handleSubmit } = useForm();
 
   // Cargar las fuentes Tomorrow
@@ -20,7 +20,7 @@ export default function LoginScreen({ navigation }: any) {
 
   const onSubmit = (data: any) => {
     console.log(data);
-    navigation.navigate('Welcome');
+    navigation.navigate('Login');
   };
 
   return (
@@ -32,8 +32,9 @@ export default function LoginScreen({ navigation }: any) {
         resizeMode="contain" // Ajusta el modo de redimensionamiento
       />
       <Text style={[tailwind`text-white text-4xl mb-10`, { fontFamily: 'Tomorrow_700Bold' }]}>
-        Iniciar Sesión
+        Registrarse
       </Text>
+
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
@@ -42,12 +43,44 @@ export default function LoginScreen({ navigation }: any) {
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
-            placeholder="Email"
+            placeholder="Nombre"
+          />
+        )}
+        name="name"
+        rules={{ required: true }}
+      />
+
+      <Controller
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={[tailwind`bg-white w-full p-3 rounded mb-3`, { fontFamily: 'Tomorrow_400Regular' }]}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            placeholder="Edad"
+            keyboardType="numeric"
+          />
+        )}
+        name="age"
+        rules={{ required: true }}
+      />
+
+      <Controller
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={[tailwind`bg-white w-full p-3 rounded mb-3`, { fontFamily: 'Tomorrow_400Regular' }]}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            placeholder="Correo electrónico"
           />
         )}
         name="email"
         rules={{ required: true }}
       />
+
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
@@ -63,12 +96,13 @@ export default function LoginScreen({ navigation }: any) {
         name="password"
         rules={{ required: true }}
       />
+
       <TouchableOpacity
         onPress={handleSubmit(onSubmit)}
         style={tailwind`bg-blue-700 p-4 rounded w-full items-center mb-3`}
       >
         <Text style={[tailwind`text-white font-bold`, { fontFamily: 'Tomorrow_700Bold' }]}>
-          Ingresar
+          Registrarse
         </Text>
       </TouchableOpacity>
     </View>
