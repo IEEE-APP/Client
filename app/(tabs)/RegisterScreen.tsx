@@ -10,7 +10,15 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
 export default function RegisterScreen({ navigation }: any) {
-   const { control, handleSubmit } = useForm();
+   // Definir valores por defecto para los inputs
+   const { control, handleSubmit } = useForm({
+      defaultValues: {
+         name: '', // Valor inicial para el nombre
+         age: '', // Valor inicial para la edad
+         email: '', // Valor inicial para el email
+         password: '', // Valor inicial para la contraseña
+      },
+   });
 
    // Cargar las fuentes Tomorrow
    const [fontsLoaded] = useFonts({

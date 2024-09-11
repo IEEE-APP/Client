@@ -6,8 +6,14 @@ import tailwind from '../../hooks/useTailwind';
 // Icons
 import Entypo from "@expo/vector-icons/Entypo";
 import Ionicons from "@expo/vector-icons/Ionicons";
+
 export default function LoginScreen({ navigation }: any) {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      email: '', // Valores iniciales como cadenas vacías
+      password: '', 
+    }
+  });
 
   // Cargar las fuentes Tomorrow
   const [fontsLoaded] = useFonts({
@@ -26,8 +32,7 @@ export default function LoginScreen({ navigation }: any) {
   };
 
   return (
-    <View style={tailwind`flex-1  items-center bg-[#2C36FF] px-10`}>
-
+    <View style={tailwind`flex-1 items-center bg-[#2C36FF] px-10`}>
       <Image
         source={require('../../assets/images/logo1.png')} // Ruta de la imagen
         style={tailwind`w-28 mt-12 mb-16`} // Ajusta el tamaño de la imagen usando Tailwind
@@ -36,7 +41,9 @@ export default function LoginScreen({ navigation }: any) {
       <Text style={[tailwind`text-white text-4xl mb-10`, { fontFamily: 'Tomorrow_700Bold' }]}>
         Iniciar Sesión
       </Text>
-      <View style={tailwind`flex-row items-center bg-white w-full p-3 rounded-xl mb-6 shadow-lg `}>
+      
+      {/* Input del Email */}
+      <View style={tailwind`flex-row items-center bg-white w-full p-3 rounded-xl mb-6 shadow-lg`}>
         <Entypo name="mail" size={24} color="black" style={tailwind`mr-3 opacity-80`} />
         <Controller
           control={control}
@@ -47,11 +54,15 @@ export default function LoginScreen({ navigation }: any) {
               onChangeText={onChange}
               value={value}
               placeholder="Email"
+              keyboardType="email-address"
             />
           )}
           name="email"
           rules={{ required: true }}
-        /></View>
+        />
+      </View>
+      
+      {/* Input de la Contraseña */}
       <View style={tailwind`flex-row items-center bg-white w-full p-3 rounded-xl mb-6 shadow-lg`}>
         <Ionicons name="key" size={24} color="black" style={tailwind`mr-3 opacity-80`} />
         <Controller
@@ -68,7 +79,10 @@ export default function LoginScreen({ navigation }: any) {
           )}
           name="password"
           rules={{ required: true }}
-        /></View>
+        />
+      </View>
+      
+      {/* Botón de Ingresar */}
       <TouchableOpacity
         onPress={handleSubmit(onSubmit)}
         style={tailwind`bg-blue-700 p-4 rounded w-full items-center mb-3 mt-12 rounded-xl shadow-xl`}
