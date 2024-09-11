@@ -3,7 +3,9 @@ import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Image } fro
 import { useForm, Controller } from 'react-hook-form';
 import { useFonts, Tomorrow_400Regular, Tomorrow_700Bold } from '@expo-google-fonts/tomorrow';
 import tailwind from '../../hooks/useTailwind';
-
+// Icons
+import Entypo from "@expo/vector-icons/Entypo";
+import Ionicons from "@expo/vector-icons/Ionicons";
 export default function LoginScreen({ navigation }: any) {
   const { control, handleSubmit } = useForm();
 
@@ -34,11 +36,13 @@ export default function LoginScreen({ navigation }: any) {
       <Text style={[tailwind`text-white text-4xl mb-10`, { fontFamily: 'Tomorrow_700Bold' }]}>
         Iniciar Sesión
       </Text>
+      <View  style={tailwind`flex-row items-center bg-white w-full p-3 rounded mb-3 `}>   
+      <Entypo name="mail" size={24} color="black" style={tailwind`mr-3`} />
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            style={[tailwind`bg-white w-full p-3 rounded mb-3`, { fontFamily: 'Tomorrow_400Regular' }]}
+            style={[tailwind`flex-1`, { fontFamily: 'Tomorrow_400Regular' }]}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -47,12 +51,14 @@ export default function LoginScreen({ navigation }: any) {
         )}
         name="email"
         rules={{ required: true }}
-      />
+      /></View>
+      <View style={tailwind`flex-row items-center bg-white w-full p-3 rounded mb-3`}>   
+      <Ionicons name="key" size={24} color="black" style={tailwind`mr-3`} />
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            style={[tailwind`bg-white w-full p-3 rounded mb-3`, { fontFamily: 'Tomorrow_400Regular' }]}
+            style={[tailwind`flex-1`, { fontFamily: 'Tomorrow_400Regular' }]}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -62,7 +68,7 @@ export default function LoginScreen({ navigation }: any) {
         )}
         name="password"
         rules={{ required: true }}
-      />
+      /></View>
       <TouchableOpacity
         onPress={handleSubmit(onSubmit)}
         style={tailwind`bg-blue-700 p-4 rounded w-full items-center mb-3`}
