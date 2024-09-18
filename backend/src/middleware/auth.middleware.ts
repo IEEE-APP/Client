@@ -11,7 +11,7 @@ const valiteResources = (schema: AnyZodObject) => (req: Request, res: Response, 
     })
     next()
   } catch (e: any) {
-    return res.status(404).json({ from: "Error from validateResources.ts", error: e})
+    return res.status(404).json({ from: "Error from validateResources.ts", error: e.issues})
   }
 }
 
