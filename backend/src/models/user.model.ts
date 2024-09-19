@@ -11,12 +11,14 @@ export interface RegisterDocument extends mongoose.Document {
   edad: number
   email: string
   password: string
+  comparePassword(candidatePassword: string): Promise<boolean>
 }
 
 const loginSchema = new mongoose.Schema<LoginDocument>({
   email: { type: String, require: true, unique: true },
   password: { type: String, require: true }
 })
+
 
 loginSchema.pre('save', async function (next) {
   let user = this;
@@ -34,7 +36,6 @@ const registerSchema = new mongoose.Schema<RegisterDocument>({
   email: { type: String, require: true, unique: true },
   password: { type: String, require: true }
 })
-
 registerSchema.pre('save', async function (next) {
   let user = this;
   if (!user.isModified('password')) {
@@ -46,6 +47,20 @@ registerSchema.pre('save', async function (next) {
   user.password = hash;
   return next();
 })
+
+registerSchema.method('comparePassword', async function (candidatePassword: string): Promise<boolean> {
+  try {
+    const user: any = this
+    const result = await bcrypt.compare(candidatePassword, user.password)
+    console.info('comparando password', user.password, candidatePassword)
+    return result
+  } catch (e) {
+    console.error('Error comparando password')
+    return false
+  }
+})
+
+
 
 const loginModel = mongoose.model<LoginDocument>("Login", loginSchema)
 const registerModel = mongoose.model<RegisterDocument>('Create', registerSchema)
