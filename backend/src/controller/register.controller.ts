@@ -3,7 +3,6 @@ import { CreateRegisterInputBody } from "../schema/user.schema";
 
 const register = (req: Request<unknown, unknown, CreateRegisterInputBody, unknown>, res: Response) => {
   const { edad, nombre, email, password } = req.body
-  res.cookie('exape','wewe')
   res.json({ msg: 'all ok', edad, nombre, email, password })
 }
 

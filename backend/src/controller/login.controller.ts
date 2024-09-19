@@ -8,7 +8,7 @@ const login = async (req: Request<unknown, unknown, CreateLoginInputBody, unknow
     const user = await loginUser({ email, password })
     res.json({ msg: 'ok', user })
   } catch (error) {
-    res.json({msg:"somethint wronr"})
+    res.json({ msg: "somethint wronr" })
   }
 }
 
