@@ -8,3 +8,6 @@
 2. `docker-compose up --build`
 3. `see http://localhost:4000`
 4. Query the api
+
+### TODO
+- [ ] Add JWT for active sessions on login Schema
