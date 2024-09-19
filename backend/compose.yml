@@ -1,0 +1,11 @@
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      - name=value
+    ports:
+      - 27017:27017
+    container_name: mondodb
+    volumes:
+      - ${pwd}/db/mongodb:/data/db

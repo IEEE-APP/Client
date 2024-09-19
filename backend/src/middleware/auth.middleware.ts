@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { AnyZodObject } from "zod";
 
 const valiteResources = (schema: AnyZodObject) => (req: Request, res: Response, next: NextFunction) => {
-  console.log('passing from validateResource.middelware.ts in validaeResources')
   try {
     schema.parse({
       body: req.body,
