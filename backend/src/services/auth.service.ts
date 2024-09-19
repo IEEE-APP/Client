@@ -14,15 +14,21 @@ const loginUser = async ({ email, password }: { email: string, password: string 
     }
     return { user: undefined, msg: 'user not finded' }
   } catch (error) {
+    console.log(error)
     throw new Error('Error on loginUser.service')
   }
 }
 
 const registerUser = async ({ nombre, edad, email, password }: { nombre: string, edad: number, email: string, password: string }) => {
   try {
+    const userRegister = await registerModel.findOne({ email })
+    if (userRegister) {
+      return { user: undefined, msg: "usuario existe, change another email" }
+    }
     const user = await registerModel.create({ email, edad, nombre, password });
-    return user;
+    return { user, msg: 'usuario creado' };
   } catch (error) {
+    console.log(error)
     throw new Error('Error on registerUser.service')
   }
 }

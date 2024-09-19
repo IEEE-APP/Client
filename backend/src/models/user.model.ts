@@ -15,7 +15,7 @@ export interface RegisterDocument extends mongoose.Document {
 }
 
 const loginSchema = new mongoose.Schema<LoginDocument>({
-  email: { type: String, require: true, unique: true },
+  email: { type: String, require: true },
   password: { type: String, require: true }
 })
 
@@ -52,7 +52,6 @@ registerSchema.method('comparePassword', async function (candidatePassword: stri
   try {
     const user: any = this
     const result = await bcrypt.compare(candidatePassword, user.password)
-    console.info('comparando password', user.password, candidatePassword)
     return result
   } catch (e) {
     console.error('Error comparando password')
