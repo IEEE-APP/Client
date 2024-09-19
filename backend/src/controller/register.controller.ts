@@ -6,7 +6,7 @@ const register = async (req: Request<unknown, unknown, CreateRegisterInputBody, 
   const { edad, nombre, email, password } = req.body
   try {
     const user = await registerUser({ edad, nombre, email, password });
-    return user;
+    res.json({ msg: 'ok', user })
   } catch (error) {
     throw new Error('Error on register.controller')
 
