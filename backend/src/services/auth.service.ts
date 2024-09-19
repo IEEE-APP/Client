@@ -5,7 +5,7 @@ const loginUser = async ({ email, password }: { email: string, password: string 
     const user = await loginModel.create({ email, password })
     return user;
   } catch (error) {
-    throw new Error('Error on loginUser')
+    throw new Error('Error on loginUser.service')
   }
 }
 
@@ -14,8 +14,8 @@ const registerUser = async ({ nombre, edad, email, password }: { nombre: string,
     const user = await registerModel.create({ nombre, edad, email, password });
     return user;
   } catch (error) {
-    throw new Error('Error on registerUser')
+    throw new Error('Error on registerUser.service')
   }
 }
 
-export { loginUser }
+export { loginUser ,registerUser}
