@@ -11,3 +11,6 @@
 
 ### TODO
 - [ ] Add JWT for active sessions on login Schema
+
+### Important note on IP configuration
+- Update the IP with your machine's local IP (e.g., 192.168.x.x) in backend/docker-compose.yml and in frontend/services/auth.services.ts for CORS connection.

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Image, Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,6 +11,10 @@ import { loginSchema } from '@/schema/user.schema';
 
 
 export default function LoginScreen({ navigation }: any) {
+   const [visible, setVisible] = useState(false); 
+   const ChangingVisible = () => {
+      setVisible(!visible);
+   }
   const { control, handleSubmit, formState: { errors } } = useForm({
    resolver: zodResolver(loginSchema), 
     defaultValues: {
@@ -43,7 +47,7 @@ export default function LoginScreen({ navigation }: any) {
       Alert.alert('Error', 'No se pudo completar el login.');
     }
   };
-
+  
   return (
     <View style={tailwind`flex-1 items-center bg-[#2C36FF] px-10`}>
       <Image
@@ -105,12 +109,15 @@ export default function LoginScreen({ navigation }: any) {
                 onChangeText={onChange}
                 value={value}
                 placeholder="Contraseña"
-                secureTextEntry
+                secureTextEntry={visible? false : true}
               />
             )}
             name="password"
             rules={{ required: true }}
           />
+            <TouchableOpacity onPress={ChangingVisible}>
+              <Ionicons name={visible? "eye" : "eye-off"} size={24} color="black" />
+            </TouchableOpacity>
         </View>
         <View style={tailwind`h-5`}>
           {errors.password && <Text style={tailwind`text-red-500 text-sm`}>{errors.password.message}</Text>}

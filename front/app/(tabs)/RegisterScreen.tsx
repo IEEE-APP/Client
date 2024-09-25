@@ -13,6 +13,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema } from '@/schema/user.schema';
 
 export default function RegisterScreen({ navigation }: any) {
+   const [visible, setVisible] = useState(false); 
+   const ChangingVisible = () => {
+      setVisible(!visible);
+   }
    const { control, handleSubmit, formState: { errors } } = useForm({
      resolver: zodResolver(registerSchema),
      defaultValues: {
@@ -20,6 +24,7 @@ export default function RegisterScreen({ navigation }: any) {
        age: 0,
        email: '',
        password: '',
+       confirmPassword: '',
      },
    });
 
@@ -61,15 +66,15 @@ export default function RegisterScreen({ navigation }: any) {
     <View style={tailwind`flex-1 items-center bg-[#2C36FF] px-10`}>
       <Image
         source={require('../../assets/images/logo1.png')}
-        style={tailwind`w-28 h-28 mt-12 mb-16`}
+        style={tailwind`w-28 h-28 mt-12 mb-4`}
         resizeMode="contain"
       />
-      <Text style={[tailwind`text-white text-4xl mb-10 `, { fontFamily: 'Tomorrow_700Bold' }]}>
+      <Text style={[tailwind`text-white text-4xl mb-4 `, { fontFamily: 'Tomorrow_700Bold' }]}>
         Registrarse
       </Text>
 
       {/* Nombre */}
-      <View style={tailwind`w-full mb-3`}>
+      <View style={tailwind`w-full mb-2`}>
         <View style={[
           tailwind`flex-row items-center bg-white w-full p-3 rounded-xl shadow-lg`,
           errors.name ? tailwind`border border-red-500` : tailwind`border-0`
@@ -99,7 +104,7 @@ export default function RegisterScreen({ navigation }: any) {
       </View>
 
       {/* Edad */}
-      <View style={tailwind`w-full mb-3`}>
+      <View style={tailwind`w-full mb-2`}>
         <View style={[
           tailwind`flex-row items-center bg-white w-full p-3 rounded-xl shadow-lg`,
           errors.age ? tailwind`border border-red-500` : tailwind`border-0`
@@ -130,7 +135,7 @@ export default function RegisterScreen({ navigation }: any) {
       </View>
 
       {/* Email */}
-      <View style={tailwind`w-full mb-3`}>
+      <View style={tailwind`w-full mb-2`}>
         <View style={[
           tailwind`flex-row items-center bg-white w-full p-3 rounded-xl shadow-lg`,
           errors.email ? tailwind`border border-red-500` : tailwind`border-0`
@@ -153,6 +158,7 @@ export default function RegisterScreen({ navigation }: any) {
             name="email"
             rules={{ required: true }}
           />
+          
         </View>
         <View style={tailwind`h-5`}>
           {errors.email && <Text style={tailwind`text-red-500 text-sm`}>{errors.email.message}</Text>}
@@ -160,7 +166,7 @@ export default function RegisterScreen({ navigation }: any) {
       </View>
 
       {/* Contraseña */}
-      <View style={tailwind`w-full mb-3`}>
+      <View style={tailwind`w-full mb-2`}>
         <View style={[
           tailwind`flex-row items-center bg-white w-full p-3 rounded-xl shadow-lg`,
           errors.password ? tailwind`border border-red-500` : tailwind`border-0`
@@ -178,18 +184,55 @@ export default function RegisterScreen({ navigation }: any) {
                 onChangeText={onChange}
                 value={value}
                 placeholder="Contraseña"
-                secureTextEntry
+                secureTextEntry={visible? false : true}
               />
             )}
             name="password"
             rules={{ required: true }}
           />
+         <TouchableOpacity onPress={ChangingVisible}>
+            <Ionicons name={visible? "eye" : "eye-off"} size={24} color="black" />
+         </TouchableOpacity>
         </View>
         <View style={tailwind`h-5`}>
           {errors.password && <Text style={tailwind`text-red-500 text-sm`}>{errors.password.message}</Text>}
         </View>
       </View>
 
+
+
+       {/* Confirmar contraseña */}
+       <View style={tailwind`w-full mb-2`}>
+         <View style={[
+           tailwind`flex-row items-center bg-white w-full p-3 rounded-xl shadow-lg`,
+           errors.confirmPassword ? tailwind`border border-red-500` : tailwind`border-0`
+         ]}>
+           <Ionicons name="key" size={24} color="black" style={tailwind`mr-3 opacity-80`} />
+           <Controller
+             control={control}
+             render={({ field: { onChange, onBlur, value } }) => (
+               <TextInput
+                 style={[
+                   tailwind`flex-1 opacity-60 text-base`,
+                   { fontFamily: 'Tomorrow_400Regular' }
+                 ]}
+                 onBlur={onBlur}
+                 onChangeText={onChange}
+                 value={value}
+                 placeholder="Confirmar contraseña"
+                 secureTextEntry
+               />
+             )}
+             name="confirmPassword"
+             rules={{ required: true }}
+           />
+         </View>
+         <View style={tailwind`h-5`}>
+           {errors.confirmPassword && (
+             <Text style={tailwind`text-red-500 text-sm`}>{errors.confirmPassword.message}</Text>
+           )}
+         </View>
+       </View>
       <TouchableOpacity
         onPress={handleSubmit(onSubmit)}
         style={tailwind`bg-blue-700 p-4 rounded w-full items-center mb-3 mt-0 rounded-xl shadow-xl`}
