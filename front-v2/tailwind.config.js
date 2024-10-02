@@ -14,6 +14,10 @@ module.exports = {
         pextrabold: ["Poppins-ExtraBold", "sans-serif"],
         pblack: ["Poppins-Black", "sans-serif"],
       },
+      backgroundColor:{
+        primary:"#2c36ff",
+        defualtDM:"#282c34"
+      }
     },
   },
   plugins: [],

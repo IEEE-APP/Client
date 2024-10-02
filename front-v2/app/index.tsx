@@ -1,15 +1,36 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { Href, Link } from 'expo-router'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { images } from '@/constants'
+import CustomButton from '@/components/custom-button'
+import { router } from 'expo-router'
 
 const index = () => {
   return (
-    <View className='flex-1 items-center justify-center bg-white'>
-      <Text className='text-3xl font-pblack'>Aora!</Text>
-      <StatusBar style='auto'/>
-      <Link href={'/home' as Href} style={{color:'blue'}}>Go to Home</Link>
-    </View>
+    <SafeAreaView className='bg-primary h-full'>
+      <ScrollView contentContainerStyle={{ height: "100%" }}>
+        <View className='w-full h-full justify-center items-center p-[35px]'>
+          <Image
+            source={images.logo1}
+            className='w-[230px] h-[184px]'
+            resizeMode='contain'
+          />
+          <Text
+            className='text-sm font-pbold text-gray-100 mt-7 text-center'>
+            Here, Where the students and teacheres are together to improve the sessions class
+          </Text>
+          <CustomButton
+            title='Continue with Email'
+            handlePress={() => router.push('/sign-in')}
+            containerStyle='w-full mt-7'
+            textStyle=''
+            isLoading={false}
+          />
+        </View>
+      </ScrollView>
+      <StatusBar backgroundColor="#282c34" style="light" />
+    </SafeAreaView>
   )
 }
 
