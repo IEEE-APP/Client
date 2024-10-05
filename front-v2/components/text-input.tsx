@@ -18,9 +18,9 @@ const FormField = (props: FormFieldProps) => {
     <View className={`space-y-2  ${props.otherStyles}`}>
       <Text className='text-base text-gray-100 font-pmedium '>{props.title}</Text>
       <View className='shadow-md w-full h-16 px-4 bg-white rounded-2xl
-    focus:border-secondary items-center flex-row text-black'>
+    focus:border-secondary items-center  justify-center flex-row text-black'>
         <TextInput
-          className='flex-1 text-white font-psemibold text-base'
+          className='flex-1 text-black font-psemibold text-base'
           value={props.value}
           placeholder={props.keyboardType}
           placeholderTextColor="#7b7b8b"

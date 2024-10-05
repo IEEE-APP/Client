@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from "@/constants"
 import FormField from '@/components/text-input'
 import { Link } from 'expo-router'
+import CustomButton from '@/components/custom-button'
 
 const SignIn = () => {
 
@@ -15,7 +16,7 @@ const SignIn = () => {
   return (
     <SafeAreaView className='bg-primary h-full'>
       <ScrollView className='h-full'>
-        <View className='w-full justify-center h-[85vh] px-4 my-4'>
+        <View className='w-full justify-center min-h-screen max-w-[90%] mx-auto flex-col'>
           <View className='items-center'>
             <Image
               source={images.logo1}
@@ -27,24 +28,28 @@ const SignIn = () => {
               Inicio de Sesion
             </Text>
           </View>
-          <FormField
-            handleChangeText={(e) => { setForm({ ...form, email: e }) }}
-            keyboardType='jordan@email.com'
-            otherStyles='we'
-            password={false}
-            title="Email"
-            value={form.email} />
-          <FormField
-            handleChangeText={(e) => { setForm({ ...form, password: e }) }}
-            keyboardType='***'
-            otherStyles='we'
-            password={true}
-            title="Password"
-            value={form.password} />
-            
-          <View className='items-center'>
-            <Text>No tienes una cueta todavia?</Text>
-            <Link href={'/sign-up'}>Registrarse</Link>
+
+          <View className='justify-center'>
+            <FormField
+              handleChangeText={(e) => { setForm({ ...form, email: e }) }}
+              keyboardType='jordan@email.com'
+              otherStyles=''
+              password={false}
+              title="Email"
+              value={form.email} />
+            <FormField
+              handleChangeText={(e) => { setForm({ ...form, password: e }) }}
+              keyboardType='***'
+              otherStyles='mt-[15px]'
+              password={true}
+              title="Password"
+              value={form.password} />
+            <CustomButton title='Iniciar Sesion' containerStyle='mt-[20px]' handlePress={() => { }} isLoading={false} textStyle='' />
+          </View>
+
+          <View className='items-center mt-[60px]'>
+            <Text className='text-white text-sm tracking-tighter'>No tienes una cueta todavia?</Text>
+            <Link href={'/sign-up'} className='text-white text-lg underline font-pmedium'>Registrarse</Link>
           </View>
         </View>
       </ScrollView>
