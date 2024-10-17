@@ -10,7 +10,7 @@ export default function TabLayout() {
         headerShown: false,
       }}>
       <Tabs.Screen
-        name="index"
+        name="loginScreen"
         options={{
           title: 'Login',
           tabBarIcon: ({ color, focused }) => (
@@ -19,7 +19,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="RegisterScreen"
+        name="registerScreen"
         options={{
           title: 'Register',
           tabBarIcon: ({ color, focused }) => (

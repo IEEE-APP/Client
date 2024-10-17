@@ -3,14 +3,15 @@ import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Image, Aler
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFonts, Tomorrow_400Regular, Tomorrow_700Bold } from '@expo-google-fonts/tomorrow';
-import tailwind from '../../hooks/useTailwind';
+import tailwind from '@/hooks/useTailwind';
 import Entypo from "@expo/vector-icons/Entypo";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { loginUser } from '@/services/auth.services';
 import { loginSchema } from '@/schema/user.schema';
-
+import { Redirect, useRouter } from 'expo-router';
 
 export default function LoginScreen({ navigation }: any) {
+  const router = useRouter(); // Hook para obtener el objeto de navegación
    const [visible, setVisible] = useState(false); 
    const ChangingVisible = () => {
       setVisible(!visible);
@@ -33,6 +34,8 @@ export default function LoginScreen({ navigation }: any) {
   }
 
   const onSubmit = async (data: any) => {
+    console.log("redirigiendo a home")
+    router.push('/');
     try {
       const response = await loginUser({
         email: data.email,

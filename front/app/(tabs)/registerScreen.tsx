@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Image, Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { useFonts, Tomorrow_400Regular, Tomorrow_700Bold } from '@expo-google-fonts/tomorrow';
-import tailwind from '../../hooks/useTailwind';
+import tailwind from '@/hooks/useTailwind';
 // Icons
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Entypo from "@expo/vector-icons/Entypo";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { registerUser } from './../../services/auth.services';
+import { registerUser } from '../../services/auth.services';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema } from '@/schema/user.schema';
 
