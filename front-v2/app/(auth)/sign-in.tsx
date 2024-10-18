@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from "@/constants"
 import FormField from '@/components/text-input'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
 import CustomButton from '@/components/custom-button'
 
 const SignIn = () => {
@@ -12,7 +12,6 @@ const SignIn = () => {
     email: '',
     password: ''
   })
-
   return (
     <SafeAreaView className='bg-primary h-full'>
       <ScrollView className='h-full'>
@@ -44,7 +43,7 @@ const SignIn = () => {
               password={true}
               title="Password"
               value={form.password} />
-            <CustomButton title='Iniciar Sesion' containerStyle='mt-[20px]' handlePress={() => { }} isLoading={false} textStyle='' />
+            <CustomButton title='Iniciar Sesion' containerStyle='mt-[20px]' handlePress={() => { router.replace('/home') }} isLoading={false} textStyle='' />
           </View>
 
           <View className='items-center mt-[60px]'>
