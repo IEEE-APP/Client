@@ -10,8 +10,8 @@ export interface FormFieldProps {
   placeholder: string
   password: boolean
   textStyle?: string
-  inputStyle?:string
-  containerStyle?:string
+  inputStyle?: string
+  containerStyle?: string
 }
 
 const FormField = (props: FormFieldProps) => {
@@ -20,8 +20,8 @@ const FormField = (props: FormFieldProps) => {
   return (
     <View className={`${props.otherStyles}`}>
       <Text className={`text-base text-gray-100 font-pmedium ${props.textStyle}`}>{props.title}</Text>
-      <View className={`shadow-md w-full h-16 px-4  rounded-2xl
-    focus:border-secondary items-center  justify-center flex-row text-black ${props.containerStyle}`}>
+      <View className={`shadow-md w-full h-16 px-4 rounded-2xl
+    focus:border-secondary items-center  justify-center flex-row text-black bg-red-200  ${props.containerStyle}`}>
         <TextInput
           className={`flex-1 text-black font-psemibold text-base ${props.inputStyle}`}
           value={props.value}

@@ -12,6 +12,10 @@ const SignIn = () => {
     email: '',
     password: ''
   })
+  const handleSignIn = ()=>{
+    console.log(form.email, form.password)
+    router.replace('/home')
+  }
   return (
     <SafeAreaView className='bg-primary h-full'>
       <ScrollView className='h-full'>
@@ -31,19 +35,21 @@ const SignIn = () => {
           <View className='justify-center'>
             <FormField
               handleChangeText={(e) => { setForm({ ...form, email: e }) }}
-              keyboardType='jordan@email.com'
+              placeholder='jordan@email.com'
+              containerStyle='bg-white border border-1 border-black'
               otherStyles=''
               password={false}
               title="Email"
               value={form.email} />
             <FormField
               handleChangeText={(e) => { setForm({ ...form, password: e }) }}
-              keyboardType='***'
+              placeholder="*****"
+              containerStyle='bg-white border border-1 border-black'
               otherStyles='mt-[15px]'
               password={true}
               title="Password"
               value={form.password} />
-            <CustomButton title='Iniciar Sesion' containerStyle='mt-[20px]' handlePress={() => { router.replace('/home') }} isLoading={false} textStyle='' />
+            <CustomButton title='Iniciar Sesion' containerStyle='mt-[20px]' handlePress={() => handleSignIn()} isLoading={false} textStyle='' />
           </View>
 
           <View className='items-center mt-[60px]'>
