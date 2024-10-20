@@ -59,7 +59,7 @@ const TabsLayout = () => {
               <TabIcon
                 icon={icons.plus}
                 color={color}
-                name='Create'
+                name='Create Ejercicio'
                 focused={focused}
               />
             )
@@ -74,7 +74,7 @@ const TabsLayout = () => {
               <TabIcon
                 icon={icons.bookmark}
                 color={color}
-                name='BookMark'
+                name='Materias'
                 focused={focused}
               />
             )
@@ -89,7 +89,7 @@ const TabsLayout = () => {
               <TabIcon
                 icon={icons.profile}
                 color={color}
-                name='Profile'
+                name='Clasificacion'
                 focused={focused}
               />
             )

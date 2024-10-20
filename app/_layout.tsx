@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router';
 import { GlobalProvider } from '@/context/GlovalProvider';
+import { StatusBar } from 'expo-status-bar';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,6 +34,7 @@ const RootLayout = () => {
         <Stack.Screen name='(auth)' options={{ headerShown: false }} />
         <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
       </Stack>
+      <StatusBar backgroundColor='#161622' style='light'/>
     </GlobalProvider>
   )
 }
