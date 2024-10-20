@@ -1,0 +1,19 @@
+{
+  "assets": [
+    {
+      "assetId": null,
+      "base64": null,
+      "duration": null,
+      "exif": null,
+      "fileName": "1fa94635-b5c1-4d5d-9a60-463eb2cde04c.jpeg",
+      "fileSize": 300247,
+      "height": 720,
+      "mimeType": "image/jpeg",
+      "rotation": null,
+      "type": "image",
+      "uri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540jordanalexander%252Ffront-v2-ieee/ImagePicker/1fa94635-b5c1-4d5d-9a60-463eb2cde04c.jpeg",
+      "width": 960
+    }
+  ],
+  "canceled": false
+}

@@ -1,33 +1,27 @@
-import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ProfrsorInfo from '@/components/(profesor_view)/info'
 import { images } from '@/constants'
 import FormField from '@/components/text-input'
-import * as ImagePicker from 'expo-image-picker';
+import SetQuestions from '@/components/(profesor_view)/set-questions'
 
 const Create = () => {
-  const [image, setImage] = useState<string | null>(null);
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
 
-    console.log(result);
+  const [form, setForm] = useState({
+    materia: '',
+    tema: '',
+  })
 
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    }
-  };
+  const [image, setImage] = useState('')
 
+  const sendImageViw = (uri: string) => {
+    setImage(uri)
+  }
 
   return (
-    <SafeAreaView className='bg-primary min-h-screen px-4 py-[20px]'>
-      <View className='flex-1'>
+    <SafeAreaView className='bg-primary min-h-screen px-4 py-[40px]'>
+      <View className='flex-1 relative'>
         <ProfrsorInfo />
         <View className='bg-white flex-1 mb-[10px] mt-[10px] rounded-md p-4'>
           <View className='flex-row items-center justify-between'>
@@ -40,31 +34,57 @@ const Create = () => {
           </View>
           <View className='flex-1'>
             <FormField
-              handleChangeText={() => { }}
+              handleChangeText={(e) => setForm({ ...form, materia: e })}
               placeholder='geometry..'
               textStyle='text-black'
               inputStyle=''
               otherStyles='mt-[10px]'
-              value=''
+              value={form.materia}
               title={'Materia'}
               password={false}
               containerStyle='bg-[#eeeeee] border border-1 border-black'
             />
             <FormField
-              handleChangeText={() => { }}
+              handleChangeText={(e) => setForm({ ...form, tema: e })}
               placeholder='tema 1..'
               textStyle='text-black'
               inputStyle=''
               otherStyles='mt-[10px]'
-              value=''
+              value={form.tema}
               title={'Tema'}
               password={false}
               containerStyle='bg-[#eeeeee] border border-1 border-black'
             />
-            <Button title="Pick an image from camera roll" onPress={pickImage} />
-            {image && <Image source={{ uri: image }} className='w-[200px] h-[200px]' />}
+            <SetQuestions sendImageViw={sendImageViw} />
+          </View>
+          <View className='my-auto flex-row justify-between'>
+            <TouchableOpacity className='bg-[#ff4d4d] rounded-md px-3 py-1'>
+              <Text className='text-white'>Volver</Text>
+            </TouchableOpacity>
+            <TouchableOpacity className='bg-[#5d53e2] px-3 py-1 rounded-md'>
+              <Text className='text-white'>Publicar</Text>
+            </TouchableOpacity>
           </View>
         </View>
+        {image === "" ? (
+          null
+        ) :
+          (
+            <TouchableOpacity
+            onPress={()=>setImage('')}
+            className='absolute justify-center items-center h-full w-full'>
+              <View className='h-full w-full opacity-[0.2] z-30 rounded-md bg-black'></View>
+              <View className='absolute rounded-md'>
+               
+                    <Image
+                      source={{ uri: image }}
+                      className='w-[200px] h-[200px] p-3 '
+                      resizeMode='contain'
+                    />
+              </View>
+            </TouchableOpacity>
+          )
+        }
       </View>
     </SafeAreaView>
   )
