@@ -48,7 +48,7 @@ const SignIn = () => {
 
           <View className='items-center mt-[60px]'>
             <Text className='text-white text-sm tracking-tighter'>No tienes una cueta todavia?</Text>
-            <Link href={'/sign-up'} className='text-white text-lg underline font-pmedium'>Registrarse</Link>
+            <Link href={'/(auth)/sign-up'} className='text-white text-lg underline font-pmedium'>Registrarse</Link>
           </View>
         </View>
       </ScrollView>

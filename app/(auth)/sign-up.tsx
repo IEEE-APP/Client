@@ -33,7 +33,7 @@ const SignUp = () => {
           <CustomButton title='Registrar' containerStyle='mt-[20px]' handlePress={() => { }} isLoading={false} textStyle='' />
           <View className='items-center mt-[60px]'>
             <Text className='text-white text-sm tracking-tighter'>Ya tienes una cuenta?</Text>
-            <Link href={'/sign-up'} className='text-white text-lg underline font-pmedium'>Inicia sesion</Link>
+            <Link href={'/(auth)/sign-in'} className='text-white text-lg underline font-pmedium'>Inicia sesion</Link>
           </View>
         </View>
       </ScrollView>

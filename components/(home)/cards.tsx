@@ -4,7 +4,6 @@ import { images } from '@/constants'
 import { router } from 'expo-router'
 
 const Cards = ({ label, img }: { label: string, img: any }) => {
-  const imagen = `../../assets/images/${img}.png`
   return (
     <TouchableOpacity
       onPress={() => router.replace('/(tabs)/create')}
