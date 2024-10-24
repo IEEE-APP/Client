@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, ScrollView, Image, FlatList } from 'react-nativ
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Cards from '@/components/(home)/cards'
-import ProfrsorInfo from '@/components/(profesor_view)/info'
+import Info from '@/components/(profesor_view)/info'
 import provideCards from '@/lib/profesor/cards'
 
 
@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <SafeAreaView className='bg-primary min-h-screen'>
       <View className='h-full px-4 py-[40px]'>
-        <ProfrsorInfo />
+        <Info />
         <FlatList
           className='mt-[20px] mx-auto'
           data={cards}

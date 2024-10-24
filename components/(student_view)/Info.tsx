@@ -12,7 +12,7 @@ const Info = () => {
       />
       <View>
         <Text>Fedor	Mikhaïlovitch	Dostoïevski</Text>
-        <Text className='font-black'>Profesor</Text>
+        <Text className='font-black'>Alumno</Text>
       </View>
       <Image
         source={images.logo2}
