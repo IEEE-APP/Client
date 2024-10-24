@@ -14,7 +14,7 @@ const SignIn = () => {
   })
   const handleSignIn = ()=>{
     console.log(form.email, form.password)
-    router.replace('/home')
+    router.replace('/(tabs)/(student)/home')
   }
   return (
     <SafeAreaView className='bg-primary h-full'>

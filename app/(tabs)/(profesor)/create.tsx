@@ -71,16 +71,15 @@ const Create = () => {
         ) :
           (
             <TouchableOpacity
-            onPress={()=>setImage('')}
-            className='absolute justify-center items-center h-full w-full'>
+              onPress={() => setImage('')}
+              className='absolute justify-center items-center h-full w-full'>
               <View className='h-full w-full opacity-[0.2] z-30 rounded-md bg-black'></View>
               <View className='absolute rounded-md'>
-               
-                    <Image
-                      source={{ uri: image }}
-                      className='w-[200px] h-[200px] p-3 '
-                      resizeMode='contain'
-                    />
+                <Image
+                  source={{ uri: image }}
+                  className='w-[200px] h-[200px] p-3 '
+                  resizeMode='contain'
+                />
               </View>
             </TouchableOpacity>
           )
