@@ -32,10 +32,11 @@ const RootLayout = () => {
       <Stack>
         <Stack.Screen name='index' options={{ headerShown: false }} />
         <Stack.Screen name='(auth)' options={{ headerShown: false }} />
-        <Stack.Screen name='(tabs)/(student)' options={{headerShown:false}} />
+        <Stack.Screen name='(tabs)/(student)' options={{ headerShown: false }} />
         <Stack.Screen name='(tabs)/(profesor)' options={{ headerShown: false }} />
+        <Stack.Screen name='courses/[course]' options={{ headerShown: false }} />
       </Stack>
-      <StatusBar backgroundColor='#161622' style='light'/>
+      <StatusBar backgroundColor='#161622' style='light' />
     </GlobalProvider>
   )
 }

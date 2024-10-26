@@ -15,7 +15,7 @@ const ResolverExercices = () => {
             <View className='flex-row px-[10px] justify-between items-center mx-auto'>
               <Image
                 source={images.create}
-                className='w-[20px] h-[30px]'
+                className='w-[20px] h-[30px] mr-[10px]'
                 resizeMode='contain'
               />
               <Text className='text-[30px] tracking-tighter uppercase font-plight'>Resolver Ejercicio</Text>
