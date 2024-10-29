@@ -81,20 +81,115 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name='profile'
+          name="profile"
           options={{
             title: "Profile",
+            headerShown: false,
+            /*             tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.profile}
+                color={color}
+                name="Clasificacion"
+                focused={focused}
+              />
+            ), */
+            tabBarButton: () => null,
+          }}
+        />
+        <Tabs.Screen
+          name="setting"
+          options={{
+            title: "Setting",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.profile}
                 color={color}
-                name='Clasificacion'
+                name="Ajustes"
                 focused={focused}
               />
-            )
+            ),
           }}
         />
+        <Tabs.Screen
+          name="queries"
+          options={{
+            title: "Queries",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.profile}
+                color={color}
+                name="Consultas"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="qualifications"
+          options={{
+            title: "Qualifications",
+            headerShown: false,
+            tabBarButton: () => null,
+          }}
+        />
+        <Tabs.Screen
+          name="createCourses"
+          options={{
+            title: "Create Courses",
+            headerShown: false,
+            tabBarButton: () => null, // Ocultar completamente de la barra de navegación
+          }}
+        />
+        <Tabs.Screen
+          name="courses"
+          options={{
+            title: "Courses",
+            headerShown: false,
+            tabBarButton: () => null, // Ocultar completamente de la barra de navegación
+          }}
+        />
+        <Tabs.Screen
+          name="courseDetails"
+          options={{
+            title: "CourseDetails",
+            headerShown: false,
+            tabBarButton: () => null, // Ocultar completamente de la barra de navegación
+          }}
+        />
+        <Tabs.Screen
+          name="courseDetailsStudent"
+          options={{
+            title: "CourseDetailsStudent",
+            headerShown: false,
+            tabBarButton: () => null, // Ocultar completamente de la barra de navegación
+          }}
+        />
+        <Tabs.Screen
+          name="queriesDetails"
+          options={{
+            title: "QueriesDetails",
+            headerShown: false,
+            tabBarButton: () => null, // Ocultar completamente de la barra de navegación
+          }}
+        />
+        <Tabs.Screen
+          name="qualificationsStudent"
+          options={{
+            title: "QualificationsStudent",
+            headerShown: false,
+            tabBarButton: () => null, // Ocultar completamente de la barra de navegación
+          }}
+        />
+        <Tabs.Screen
+          name="qualificationsStudentDetails"
+          options={{
+            title: "QualificationsStudentDetails",
+            headerShown: false,
+            tabBarButton: () => null, // Ocultar completamente de la barra de navegación
+          }}
+        />        
       </Tabs>
     </>
   )

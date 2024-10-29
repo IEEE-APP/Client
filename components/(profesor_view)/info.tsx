@@ -1,14 +1,26 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { images } from '@/constants'
-
+import {
+   widthPercentageToDP as wp,
+   heightPercentageToDP as hp,
+ } from "react-native-responsive-screen";
 const Info = () => {
   return (
-    <View className='w-full bg-white min-h-[40px] rounded-md p-3 flex-row justify-between items-center'>
+    <View className='flex-row items-center justify-between bg-white rounded-md ' 
+    style={{
+      width: "100%",
+      minHeight: hp("5%"), // min-h-[40px]
+      padding: wp("3%"), // p-3
+    }}>
       <Image
         source={images.profesor}
-        className='w-[80px] h-[50px]'
-        resizeMode='contain'
+        className=''
+        resizeMode='contain'        
+        style={{
+         width: wp("10%"), // w-[40px]
+         height: hp("6.25%"), // h-[50px]
+       }}
       />
       <View>
         <Text>Fedor	Mikhaïlovitch	Dostoïevski</Text>
@@ -16,8 +28,12 @@ const Info = () => {
       </View>
       <Image
         source={images.logo2}
-        className='w-[80px] h-[50px]'
+        className=''
         resizeMode='contain'
+        style={{
+         width: wp("20%"), // w-[80px]
+         height: hp("6.25%"), // h-[50px]
+       }}
       />
     </View>
   )

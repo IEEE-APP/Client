@@ -1,7 +1,10 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Href, router } from 'expo-router'
-
+import {
+   widthPercentageToDP as wp,
+   heightPercentageToDP as hp,
+ } from "react-native-responsive-screen";
 // router.push(`/search/${query}`)
 
 
@@ -10,14 +13,29 @@ const Cards = ({ label, img, redirect }: { label: string, img: any, redirect: st
     <TouchableOpacity
       onPress={() => router.replace(`${redirect}` as Href<string>)}
       activeOpacity={0.6}
-      className='rounded-md my-2 mx-2 bg-white w-[180px] h-[195px] justify-center items-center '>
+      className='items-center justify-center bg-white rounded-md '
+      style={{
+         width: wp("44%"), // Ancho responsivo
+         height: hp("21%"), // Altura responsiva
+         marginHorizontal: wp("1%"), // Ajusta el margen horizontal al 2.5% del ancho de la pantalla
+         marginVertical: hp("0.5%"), // Ajusta el margen vertical al 1% de la altura de la pantalla
+       }}>
       <Image
         source={img}
-        className='w-[80px] h-[50px]'
+        className=''
         resizeMode='contain'
         alt='not rendered at all'
+        style={{
+         width: wp("20%"), // Ancho responsivo
+         height: hp("7%"), // Altura responsiva
+       }}
       />
-      <Text className='text-[15px] font-plight mt-5'>{label}</Text>
+      <Text className=' font-plight'
+              style={{
+               fontSize: wp("5%"),
+               marginTop: hp("2%"),
+             }}
+           >{label}</Text>
     </TouchableOpacity>
   )
 }

@@ -11,9 +11,9 @@ const index = () => {
 
   const { isLoading, isLoggedIn } = useGlobalContext()
 
-  if (!isLoading && isLoggedIn) return <Redirect href='/(student)/home' />
+  if (!isLoading && isLoggedIn) return <Redirect href='/(profesor)/home' />
   return (
-    <SafeAreaView className='bg-primary h-full'>
+    <SafeAreaView className='h-full bg-primary'>
       <ScrollView contentContainerStyle={{ height: "100%" }}>
         <View className='w-full h-full justify-center items-center p-[35px]'>
           <Image
@@ -22,7 +22,7 @@ const index = () => {
             resizeMode='contain'
           />
           <Text
-            className='text-sm font-pbold text-gray-100 mt-7 text-center'>
+            className='text-sm text-center text-gray-100 font-pbold mt-7'>
             Here, Where the students and teacheres are together to improve the sessions class
           </Text>
           <CustomButton

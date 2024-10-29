@@ -3,49 +3,40 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
+import { useRouter } from "expo-router"; // Importa el hook de router
 import ProfrsorInfo from "@/components/(profesor_view)/info";
 import { images } from "@/constants";
 
-const BookMark = () => {
-  const router = useRouter();
+const qualifications = () => {
+  const router = useRouter(); // Inicializa el router
 
-  const materias = [
+  const courses = [
     {
-      icon: images.create,
       name: "Aritmética",
       color: "#f56565",
-      section: "A",
-      vacantes: "10",
-      description: "Curso básico de aritmética",
-      topics: [
-        { name: "Sumas", color: "#f56565" },
-        { name: "Restas", color: "#f56565" },
-      ],
+      student: "Juan Pérez",
+      topic: "Sumas",
+      question: "¿Cómo se resuelve una suma de fracciones?",
+      answer: "Se resuelve sumando los numeradores y denominadores.",
+      note: 0,
     },
     {
-      icon: images.create,
       name: "Álgebra",
       color: "#2196F3",
-      section: "B",
-      vacantes: "15",
-      description: "Curso básico de álgebra",
-      topics: [
-        { name: "Funciones Lineales", color: "#2196F3" },
-        { name: "Polinomios", color: "#2196F3" },
-      ],
+      student: "María López",
+      topic: "Funciones Lineales",
+      question: "¿Qué es una función lineal?",
+      answer: "Una función lineal es una función de la forma y = mx + b.",
+      note: 0,
     },
     {
-      icon: images.create,
       name: "Geometría",
       color: "#48bb78",
-      section: "C",
-      vacantes: "20",
-      description: "Curso básico de geometría",
-      topics: [
-        { name: "Ángulos", color: "#48bb78" },
-        { name: "Triángulos", color: "#48bb78" },
-      ],
+      student: "Carlos García",
+      topic: "Ángulos",
+      question: "¿Cómo se mide un ángulo?",
+      answer: "Un ángulo se mide en grados utilizando un transportador.",
+      note: 0,
     },
   ];
 
@@ -56,45 +47,49 @@ const BookMark = () => {
         <View className="bg-white flex-1 mb-[10px] mt-[10px] rounded-md p-4">
           <View className="flex-row items-center justify-between">
             <Image
-              source={images.materias}
+              source={images.clasification}
               className="w-[100px] h-[80px]"
               resizeMode="contain"
             />
             <View className="absolute top-0 left-[80px] right-0 bottom-0 justify-center items-center">
               <Text className="text-[30px] tracking-tighter uppercase font-plight">
-                Materias
+                Calificacion
               </Text>
             </View>
           </View>
 
+          {/* Secciones para las materias */}
           <View className="mt-4 space-y-3">
-            {materias.map((materia, index) => (
+            {courses.map((course, index) => (
               <TouchableOpacity
-                key={materia.name}
+                key={course.name}
                 className="bg-[#eeeeee] border border-1 border-black rounded-md p-4 flex-row items-center justify-between"
                 onPress={() =>
                   router.push({
-                    pathname: "/(profesor)/courseDetails",
+                    pathname: "/(profesor)/qualificationsStudent",
                     params: {
-                      ...materia,
-                      topics: JSON.stringify(materia.topics), // Serializar topics
+                      name: course.name,
+                      color: course.color,
+                      student: course.student,
+                      topic: course.topic,
+                      question: course.question,
+                      answer: course.answer,
+                      note: course.note,
                     },
                   })
                 }
               >
                 <View className="flex-row items-center">
                   <Image
-                    source={materia.icon}
+                    source={images.papel}
                     className="w-[50px] h-[50px]"
                     resizeMode="contain"
                   />
-                  <Text className="ml-4 text-lg text-black">
-                    {materia.name}
-                  </Text>
+                  <Text className="ml-4 text-lg text-black">{course.name}</Text>
                 </View>
                 <View
                   className={`w-[20px] h-[20px] rounded-full`}
-                  style={{ backgroundColor: materia.color }}
+                  style={{ backgroundColor: course.color }}
                 />
               </TouchableOpacity>
             ))}
@@ -103,15 +98,9 @@ const BookMark = () => {
           <View className="flex-row justify-between my-auto">
             <TouchableOpacity
               className="bg-[#ff4d4d] rounded-md px-3 py-1"
-              onPress={() => router.push("/(profesor)/home")}
+              onPress={() => router.push("/(profesor)/home")} // Navegar a la ruta "home"
             >
               <Text className="text-white">Volver</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="bg-[#5d53e2] px-3 py-1 rounded-md"
-              onPress={() => router.push("/(profesor)/createCourses")}
-            >
-              <Text className="text-white">Crear</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -120,4 +109,6 @@ const BookMark = () => {
   );
 };
 
-export default BookMark;
+export default qualifications;
+
+const styles = StyleSheet.create({});

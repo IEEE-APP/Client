@@ -15,6 +15,8 @@ import consultas from "../assets/images/questions.png"
 import clasification from "../assets/images/clasificacion.png"
 import ajustes from "../assets/images/settins.png"
 import salir from "../assets/images/salir.png"
+import papel from "../assets/images/papel.png";
+import lapiz from "../assets/images/lapices.png";
 
-
-export default { profile, thumbnail, cards, path, logo, logoSmall, empty, logo1, profesor, logo2, create, materias, consultas, clasification, ajustes, salir };
+export default { profile, thumbnail, cards, path, logo, logoSmall, empty, logo1, profesor, logo2, create, materias, consultas, clasification, ajustes, salir ,  papel,
+   lapiz};
