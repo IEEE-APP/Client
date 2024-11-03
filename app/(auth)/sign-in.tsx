@@ -3,14 +3,17 @@ import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from "@/constants"
 import FormField from '@/components/text-input'
-import { Link, router } from 'expo-router'
+import { Href, Link, router } from 'expo-router'
 import CustomButton from '@/components/custom-button'
 
+
 import axios from 'axios'
-import { getData, storeData } from '@/lib/auth'
+import { getData, login, storeData } from '@/lib/auth'
+import { useGlobalContext } from '@/context/GlovalProvider'
 
 const SignIn = () => {
 
+  const {getCredentias} = useGlobalContext()
   const [form, setForm] = useState({
     email: '',
     password: ''
@@ -19,19 +22,23 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false)
 
   const handleSignIn = async () => {
-    console.log(form.email, form.password)
     try {
       setLoading(true)
-      const sendBackend = await axios.post('http://192.168.10.3:4000/api/auth/login', {
-        email: form.email,
-        password: form.password
-      })
-      storeData(sendBackend.data.msg)
-      router.replace('/(tabs)/(student)/home')
-      getData()
+      const loginResponse = await login(form.email, form.password)
+      if (!loginResponse.status) {
+        setLoading(false)
+        return;
+      }
+      storeData(loginResponse.msg)
+      const response = await getCredentias(loginResponse.msg)
+      console.log(response)
+      router.replace(`/(tabs)/(${response})/home` as Href<string | object>)
+      // /(tabs)/(${response})/home
+      // router.replace('/(tabs)/(student)/home')
+      // getData()
       setLoading(false)
-    } catch (error:any) {
-      console.log(error.response.data)
+    } catch (error: any) {
+      console.log(error)
     }
   }
   return (

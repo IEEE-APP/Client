@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 // TODO: implement with the jwt of the db
-const storeData = async (value:any) => {
+const storeData = async (value: any) => {
   try {
     await AsyncStorage.setItem('my-key', value);
   } catch (e) {
@@ -34,4 +35,16 @@ const clearToken = async () => {
 
 const getCurrentUser = async () => { }
 
-export { getCurrentUser, clearToken, getData, storeData }
+const login = async (email: string, password: string) => {
+  try {
+    const sendBackend = await axios.post('http://192.168.10.3:4000/api/auth/login', {
+      email,
+      password
+    })
+    return sendBackend.data.msg
+  } catch (error: any) {
+    return error.response.data
+  }
+}
+
+export { getCurrentUser, clearToken, getData, storeData, login }

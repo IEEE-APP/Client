@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { getCurrentUser } from '../lib/auth';
+import axios from 'axios';
 
 export interface GLobalContexrProps {
   isLoggedIn: boolean;
@@ -7,6 +8,7 @@ export interface GLobalContexrProps {
   user: any;
   changeUser: (state: any) => void
   isLoading: boolean;
+  getCredentias: (token: string) => void;
 }
 
 const GlobalContext = createContext<GLobalContexrProps>({
@@ -15,6 +17,7 @@ const GlobalContext = createContext<GLobalContexrProps>({
   user: {},
   changeUser: (state: any) => { },
   isLoading: false,
+  getCredentias: (token: string) => { }
 });
 
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
@@ -22,10 +25,10 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setuser] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [credentials, setCredentials] = useState<any>({})
 
   useEffect(() => {
-    
+
   }, [])
 
   const changeLoggIn = (state: boolean) => {
@@ -35,6 +38,14 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const changeUser = (state: any) => {
     setuser(state)
   }
+
+  const getCredentias = async (token: string) => {
+    const credentialsResponse = await axios.get(`http://192.168.10.3:4000/api/auth/login/${token}`)
+    const data = credentialsResponse.data.jwtResponse.decode
+    setCredentials({ email: data.email, userType: data.userType })
+    return data.userType === 0 ? "profesor" : "student"
+  }
+
   return (
     <GlobalContext.Provider
       value={{
@@ -42,7 +53,8 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
         changeLoggIn,
         user,
         changeUser,
-        isLoading
+        isLoading,
+        getCredentias
       }}
     >
       {children}
