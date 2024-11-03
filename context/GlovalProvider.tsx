@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getCurrentUser } from '../lib/auth';
+import { getCurrentUser, getData } from '../lib/auth';
 import axios from 'axios';
+import { Href, router } from 'expo-router';
 
 export interface GLobalContexrProps {
   isLoggedIn: boolean;
@@ -9,6 +10,7 @@ export interface GLobalContexrProps {
   changeUser: (state: any) => void
   isLoading: boolean;
   getCredentias: (token: string) => void;
+  credentials: any
 }
 
 const GlobalContext = createContext<GLobalContexrProps>({
@@ -17,7 +19,8 @@ const GlobalContext = createContext<GLobalContexrProps>({
   user: {},
   changeUser: (state: any) => { },
   isLoading: false,
-  getCredentias: (token: string) => { }
+  getCredentias: (token: string) => { },
+  credentials: {}
 });
 
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
@@ -27,8 +30,22 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [credentials, setCredentials] = useState<any>({})
 
-  useEffect(() => {
+  const verifyIfExistToken = async () => {
+    const data = await getData()
+    return data;
+  }
 
+  useEffect(() => {
+    verifyIfExistToken()
+      .then(async (token: any) => {
+        if (token) {
+          const response = await getCredentias(token)
+          router.replace(`/(tabs)/(${response})/home` as Href<string | object>)
+        }
+      })
+      .catch((error: any) => {
+        console.log('somethinf worn with the database')
+      })
   }, [])
 
   const changeLoggIn = (state: boolean) => {
@@ -42,7 +59,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const getCredentias = async (token: string) => {
     const credentialsResponse = await axios.get(`http://192.168.10.3:4000/api/auth/login/${token}`)
     const data = credentialsResponse.data.jwtResponse.decode
-    setCredentials({ email: data.email, userType: data.userType })
+    setCredentials({ email: data.email, userType: data.userType, nombre: data.nombre, apellido: data.apellidos })
     return data.userType === 0 ? "profesor" : "student"
   }
 
@@ -54,7 +71,8 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
         user,
         changeUser,
         isLoading,
-        getCredentias
+        getCredentias,
+        credentials
       }}
     >
       {children}

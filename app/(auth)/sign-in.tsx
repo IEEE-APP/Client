@@ -33,9 +33,6 @@ const SignIn = () => {
       const response = await getCredentias(loginResponse.msg)
       console.log(response)
       router.replace(`/(tabs)/(${response})/home` as Href<string | object>)
-      // /(tabs)/(${response})/home
-      // router.replace('/(tabs)/(student)/home')
-      // getData()
       setLoading(false)
     } catch (error: any) {
       console.log(error)
