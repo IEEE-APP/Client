@@ -11,7 +11,7 @@ const index = () => {
 
   const { isLoading, isLoggedIn } = useGlobalContext()
 
-  if (!isLoading && isLoggedIn) return <Redirect href='/(profesor)/home' />
+  // if (!isLoading && isLoggedIn) return <Redirect href='/(profesor)/home' />
   return (
     <SafeAreaView className='h-full bg-primary'>
       <ScrollView contentContainerStyle={{ height: "100%" }}>

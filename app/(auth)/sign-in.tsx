@@ -6,15 +6,33 @@ import FormField from '@/components/text-input'
 import { Link, router } from 'expo-router'
 import CustomButton from '@/components/custom-button'
 
+import axios from 'axios'
+import { getData, storeData } from '@/lib/auth'
+
 const SignIn = () => {
 
   const [form, setForm] = useState({
     email: '',
     password: ''
   })
-  const handleSignIn = ()=>{
+
+  const [loading, setLoading] = useState(false)
+
+  const handleSignIn = async () => {
     console.log(form.email, form.password)
-    router.replace('/(tabs)/(student)/home')
+    try {
+      setLoading(true)
+      const sendBackend = await axios.post('http://192.168.10.3:4000/api/auth/login', {
+        email: form.email,
+        password: form.password
+      })
+      storeData(sendBackend.data.msg)
+      router.replace('/(tabs)/(student)/home')
+      getData()
+      setLoading(false)
+    } catch (error:any) {
+      console.log(error.response.data)
+    }
   }
   return (
     <SafeAreaView className='bg-primary h-full'>
@@ -40,7 +58,9 @@ const SignIn = () => {
               otherStyles=''
               password={false}
               title="Email"
-              value={form.email} />
+              value={form.email}
+
+            />
             <FormField
               handleChangeText={(e) => { setForm({ ...form, password: e }) }}
               placeholder="*****"
@@ -49,7 +69,13 @@ const SignIn = () => {
               password={true}
               title="Password"
               value={form.password} />
-            <CustomButton title='Iniciar Sesion' containerStyle='mt-[20px]' handlePress={() => handleSignIn()} isLoading={false} textStyle='' />
+            <CustomButton
+              title='Iniciar Sesion'
+              containerStyle='mt-[20px]'
+              handlePress={async () => await handleSignIn()}
+              isLoading={loading}
+              textStyle=''
+            />
           </View>
 
           <View className='items-center mt-[60px]'>

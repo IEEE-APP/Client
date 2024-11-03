@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getCurrentUser, getToken } from '../lib/auth';
+import { getCurrentUser } from '../lib/auth';
 
 export interface GLobalContexrProps {
   isLoggedIn: boolean;
@@ -23,23 +23,9 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setuser] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+
   useEffect(() => {
-    getCurrentUser()
-      .then((res: any) => {
-        if (res) {
-          setIsLoggedIn(true);
-          setuser(res);
-        } else {
-          setIsLoggedIn(false)
-          setuser(null);
-        }
-      })
-      .catch((error: any) => {
-        console.log(error)
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    
   }, [])
 
   const changeLoggIn = (state: boolean) => {
@@ -52,7 +38,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <GlobalContext.Provider
       value={{
-        isLoggedIn:true,
+        isLoggedIn: true,
         changeLoggIn,
         user,
         changeUser,

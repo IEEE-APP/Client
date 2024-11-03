@@ -1,22 +1,27 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // TODO: implement with the jwt of the db
-const storeToken = async (token: string) => {
+const storeData = async (value:any) => {
   try {
-    await AsyncStorage.setItem('userToken', token)
-  } catch (error) {
-    console.error('Error saving token', error);
+    await AsyncStorage.setItem('my-key', value);
+  } catch (e) {
+    // saving error
   }
-}
+};
 
 // TODO: use inside the context to redirect the home page
-const getToken = async () => {
+const getData = async () => {
   try {
-    return await AsyncStorage.getItem('userToken')
-  } catch (error) {
-    console.error('Error retrieving token', error);
+    const value = await AsyncStorage.getItem('my-key');
+    if (value !== null) {
+      // value previously stored
+    }
+    console.log(value)
+    return value;
+  } catch (e) {
+    // error reading value
   }
-}
+};
 
 // TODO: call it when we sign-out
 const clearToken = async () => {
@@ -29,4 +34,4 @@ const clearToken = async () => {
 
 const getCurrentUser = async () => { }
 
-export { getCurrentUser, clearToken, getToken, storeToken }
+export { getCurrentUser, clearToken, getData, storeData }
