@@ -27,7 +27,7 @@ const getData = async () => {
 // TODO: call it when we sign-out
 const clearToken = async () => {
   try {
-    await AsyncStorage.removeItem('userToken')
+    await AsyncStorage.removeItem('my-key')
   } catch (error) {
     console.error('Error clearing token', error);
   }

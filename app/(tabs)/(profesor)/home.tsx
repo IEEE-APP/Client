@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import Cards from '@/components/(home)/cards'
 import Info from '@/components/(profesor_view)/info'
 import provideCards from '@/lib/profesor/cards'
+import { Drawer } from 'react-native-paper'
 
 
 const Home = () => {
@@ -28,6 +29,11 @@ const Home = () => {
           numColumns={2}
         />
       </View>
+      <Drawer.CollapsedItem
+        focusedIcon="inbox"
+        unfocusedIcon="inbox-outline"
+        label="Inbox"
+      />
     </SafeAreaView>
   )
 }

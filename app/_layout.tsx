@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router';
 import { GlobalProvider } from '@/context/GlovalProvider';
 import { StatusBar } from 'expo-status-bar';
+import { PaperProvider } from 'react-native-paper';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,16 +29,18 @@ const RootLayout = () => {
   if (!fontsLoaded && !error) return null;
 
   return (
-    <GlobalProvider>
-      <Stack>
-        <Stack.Screen name='index' options={{ headerShown: false }} />
-        <Stack.Screen name='(auth)' options={{ headerShown: false }} />
-        <Stack.Screen name='(tabs)/(student)' options={{ headerShown: false }} />
-        <Stack.Screen name='(tabs)/(profesor)' options={{ headerShown: false }} />
-        <Stack.Screen name='courses/[course]' options={{ headerShown: false }} />
-      </Stack>
-      <StatusBar backgroundColor='#161622' style='light' />
-    </GlobalProvider>
+    <PaperProvider>
+      <GlobalProvider>
+        <Stack>
+          <Stack.Screen name='index' options={{ headerShown: false }} />
+          <Stack.Screen name='(auth)' options={{ headerShown: false }} />
+          <Stack.Screen name='(tabs)/(student)' options={{ headerShown: false }} />
+          <Stack.Screen name='(tabs)/(profesor)' options={{ headerShown: false }} />
+          <Stack.Screen name='courses/[course]' options={{ headerShown: false }} />
+        </Stack>
+        <StatusBar backgroundColor='#161622' style='light' />
+      </GlobalProvider>
+    </PaperProvider>
   )
 }
 

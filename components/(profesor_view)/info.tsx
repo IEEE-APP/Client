@@ -6,6 +6,8 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { useGlobalContext } from '@/context/GlovalProvider';
+
+
 const Info = () => {
   const { credentials } = useGlobalContext()
   return (

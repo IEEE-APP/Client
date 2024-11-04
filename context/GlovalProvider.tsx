@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getCurrentUser, getData } from '../lib/auth';
+import { clearToken, getCurrentUser, getData } from '../lib/auth';
 import axios from 'axios';
 import { Href, router } from 'expo-router';
 
@@ -36,6 +36,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   useEffect(() => {
+    // clearToken()
     verifyIfExistToken()
       .then(async (token: any) => {
         if (token) {

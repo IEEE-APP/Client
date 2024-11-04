@@ -5,7 +5,6 @@ const provideCards = () => {
     { label: "Consultas", id: 3, img: require('../../assets/images/questions.png'), redirect: 'queries' },
     { label: "Calificacion", id: 4, img: require('../../assets/images/clasificacion.png'), redirect: 'qualifications' },
     { label: "Ajustes", id: 5, img: require('../../assets/images/settins.png'), redirect: 'setting' },
-    { label: "Salir", id: 6, img: require('../../assets/images/salir.png'), redirect: 'home' }
   ]
   return cards;
 }
