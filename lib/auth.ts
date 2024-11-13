@@ -37,13 +37,13 @@ const getCurrentUser = async () => { }
 
 const login = async (email: string, password: string) => {
   try {
-    const sendBackend = await axios.post('http://192.168.10.3:4000/api/auth/login', {
-      email,
-      password
+    const data = await axios.post('https://smart-learn-backend.vercel.app/api/login', {
+      email: email,
+      user_password: password
     })
-    return sendBackend.data.msg
+    return { status: true, info: data.data.user }
   } catch (error: any) {
-    return error.response.data
+    return { status: false, info:error.response.data.message }
   }
 }
 

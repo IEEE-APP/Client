@@ -10,10 +10,14 @@ import CustomButton from '@/components/custom-button'
 import axios from 'axios'
 import { getData, login, storeData } from '@/lib/auth'
 import { useGlobalContext } from '@/context/GlovalProvider'
+import { Chip } from 'react-native-paper'
 
 const SignIn = () => {
 
-  const {getCredentias} = useGlobalContext()
+  const [messageErrorStatus, setMessageErrorStatus] = useState(false)
+  const [messageError, setMessageError] = useState("")
+
+  const { getCredentias } = useGlobalContext()
   const [form, setForm] = useState({
     email: '',
     password: ''
@@ -22,21 +26,26 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false)
 
   const handleSignIn = async () => {
-    try {
-      setLoading(true)
-      const loginResponse = await login(form.email, form.password)
-      if (!loginResponse.status) {
-        setLoading(false)
-        return;
-      }
-      storeData(loginResponse.msg)
-      const response = await getCredentias(loginResponse.msg)
-      console.log(response)
-      router.replace(`/(tabs)/(${response})/home` as Href<string | object>)
+
+    setLoading(true)
+    const loginResponse = await login(form.email, form.password)
+    if (!loginResponse.status) {
       setLoading(false)
-    } catch (error: any) {
-      console.log(error)
+      setMessageErrorStatus(true)
+      setMessageError(loginResponse.info)
+      setTimeout(() => {
+        setMessageErrorStatus(false)
+        setMessageError("")
+      }, 1000)
+      return;
     }
+
+    await storeData(loginResponse.info.email)
+    // console.log(loginResponse.info.degree)
+    const redirecTo = loginResponse.info.degree
+    setLoading(false)
+    router.replace(`/(tabs)/(${redirecTo})/home` as Href<string | object>)
+
   }
   return (
     <SafeAreaView className='bg-primary h-full'>
@@ -80,6 +89,16 @@ const SignIn = () => {
               isLoading={loading}
               textStyle=''
             />
+
+            {messageErrorStatus && (
+              <Chip
+                className='mt-[5px] '
+                icon="information"
+                onPress={() => console.log('Pressed')}
+              >
+                {messageError}
+              </Chip>
+            )}
           </View>
 
           <View className='items-center mt-[60px]'>
