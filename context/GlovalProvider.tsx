@@ -3,15 +3,7 @@ import { clearToken, getCurrentUser, getData } from '../lib/auth';
 import axios from 'axios';
 import { Href, router } from 'expo-router';
 
-export interface GLobalContexrProps {
-  isLoggedIn: boolean;
-  changeLoggIn: (state: boolean) => void;
-  user: any;
-  changeUser: (state: any) => void
-  isLoading: boolean;
-  getCredentias: (token: string) => void;
-  credentials: any
-}
+import { GLobalContexrProps, CredentialsUI } from '@/lib/interfaces/useInterfaces';
 
 const GlobalContext = createContext<GLobalContexrProps>({
   isLoggedIn: false,
@@ -19,8 +11,9 @@ const GlobalContext = createContext<GLobalContexrProps>({
   user: {},
   changeUser: (state: any) => { },
   isLoading: false,
-  getCredentias: (token: string) => { },
-  credentials: {}
+  setCredentials: (credentials: CredentialsUI) => { },
+  credentials: undefined,
+
 });
 
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
@@ -28,7 +21,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setuser] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [credentials, setCredentials] = useState<any>({})
+  const [credentials, setCredentials] = useState<CredentialsUI | undefined>(undefined)
 
   const verifyIfExistToken = async () => {
     const data = await getData()
@@ -57,12 +50,10 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
     setuser(state)
   }
 
-  const getCredentias = async (token: string) => {
-    const credentialsResponse = await axios.get(`http://192.168.10.3:4000/api/auth/login/${token}`)
-    const data = credentialsResponse.data.jwtResponse.decode
-    setCredentials({ email: data.email, userType: data.userType, nombre: data.nombre, apellido: data.apellidos })
-    return data.userType === 0 ? "profesor" : "student"
+  const getCredentias = async (credentials: CredentialsUI) => {
+    setCredentials(credentials)
   }
+
 
   return (
     <GlobalContext.Provider
@@ -72,7 +63,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
         user,
         changeUser,
         isLoading,
-        getCredentias,
+        setCredentials: (e) => { getCredentias(e) },
         credentials
       }}
     >
