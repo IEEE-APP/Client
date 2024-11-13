@@ -6,10 +6,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import ProfrsorInfo from "@/components/(profesor_view)/info";
 import { images } from "@/constants";
-
+import { useNavigation } from "@react-navigation/native";
 const BookMark = () => {
   const router = useRouter();
-
+  const navigation = useNavigation();
   const materias = [
     {
       icon: images.create,
@@ -103,13 +103,13 @@ const BookMark = () => {
           <View className="flex-row justify-between my-auto">
             <TouchableOpacity
               className="bg-[#ff4d4d] rounded-md px-3 py-1"
-              onPress={() => router.push("/(profesor)/home")}
+              onPress={() => navigation.navigate("home" as never)}
             >
               <Text className="text-white">Volver</Text>
             </TouchableOpacity>
             <TouchableOpacity
               className="bg-[#5d53e2] px-3 py-1 rounded-md"
-              onPress={() => router.push("/(profesor)/createCourses")}
+              onPress={() => navigation.navigate("createCourses" as never)}
             >
               <Text className="text-white">Crear</Text>
             </TouchableOpacity>

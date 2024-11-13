@@ -2,6 +2,8 @@ import { Image, ImageSourcePropType, StyleSheet, Text, View } from 'react-native
 import React from 'react'
 import { Tabs } from 'expo-router'
 import { icons, images } from "@/constants"
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import CustomDrawerContent from '@/app/CustomDrawerContent'
 
 const TabIcon = ({ icon, color, name, focused }: { icon: ImageSourcePropType | undefined, color: string, name: string, focused: boolean }) => {
   return (
@@ -195,6 +197,22 @@ const TabsLayout = () => {
   )
 }
 
-export default TabsLayout
+const Drawer = createDrawerNavigator();
+
+const RootLayout = () => {
+  return (
+    <Drawer.Navigator
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      screenOptions={{
+        headerShown: false,
+        drawerLabel: () => null, // Oculta el nombre de la pestaña
+      }}
+    >
+      <Drawer.Screen name="TabsLayout" component={TabsLayout} />
+    </Drawer.Navigator>
+  );
+};
+
+export default RootLayout;
 
 const styles = StyleSheet.create({})

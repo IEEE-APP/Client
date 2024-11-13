@@ -28,7 +28,7 @@ const Info = () => {
           }}
         />
         <View className='ml-[10px]'>
-          <Text>{credentials.nombre}</Text>
+          <Text>{credentials?.first_name}</Text>
           <Text className='font-black'>Profesor</Text>
         </View>
       </View>
