@@ -14,15 +14,14 @@ import { Chip } from 'react-native-paper'
 
 const SignIn = () => {
 
+  const { setCredentials } = useGlobalContext()
+
   const [messageErrorStatus, setMessageErrorStatus] = useState(false)
   const [messageError, setMessageError] = useState("")
-
-  const { getCredentias } = useGlobalContext()
   const [form, setForm] = useState({
     email: '',
     password: ''
   })
-
   const [loading, setLoading] = useState(false)
 
   const handleSignIn = async () => {
@@ -40,8 +39,8 @@ const SignIn = () => {
       return;
     }
 
+    setCredentials(loginResponse.info)
     await storeData(loginResponse.info.email)
-    // console.log(loginResponse.info.degree)
     const redirecTo = loginResponse.info.degree
     setLoading(false)
     router.replace(`/(tabs)/(${redirecTo})/home` as Href<string | object>)
