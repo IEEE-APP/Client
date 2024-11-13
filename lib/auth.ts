@@ -17,7 +17,7 @@ const getData = async () => {
     if (value !== null) {
       // value previously stored
     }
-    console.log(value)
+
     return value;
   } catch (e) {
     // error reading value
@@ -47,4 +47,13 @@ const login = async (email: string, password: string) => {
   }
 }
 
-export { getCurrentUser, clearToken, getData, storeData, login }
+const requestCodeNumber = async (email: string) => {
+  try {
+    const data = await axios.get('https://smart-learn-backend.vercel.app/api/generateCode')
+    console.log(data)
+  } catch (error:any) {
+    console.log(error.response.data.message)
+  }
+}
+
+export { getCurrentUser, clearToken, getData, storeData, login, requestCodeNumber }

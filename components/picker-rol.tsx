@@ -3,8 +3,13 @@ import React, { useState } from 'react'
 import { Picker } from '@react-native-picker/picker'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
+export interface PickerRolUi {
+  degree: string
+  handleChangeText: (e: string) => void;
 
-const PickerRol = () => {
+}
+
+const PickerRol = (props: PickerRolUi) => {
   const [selectedLanguage, setSelectedLanguage] = useState("choose a value");
   return (
     <View className='space-y-2 mt-[20px] relative'>
@@ -14,8 +19,10 @@ const PickerRol = () => {
         <View className='flex-1'>
           <Picker
             selectedValue={selectedLanguage}
-            onValueChange={(itemValue, itemIndex) =>
+            onValueChange={(itemValue, itemIndex) => {
+              props.handleChangeText(itemValue)
               setSelectedLanguage(itemValue)
+            }
             }
             placeholder='choose a rol'
           >

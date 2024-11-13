@@ -19,8 +19,8 @@ const FormField = (props: FormFieldProps) => {
 
   return (
     <View className={`${props.otherStyles}`}>
-      <Text className={`text-base text-gray-100 font-pmedium ${props.textStyle}`}>{props.title}</Text>
-      <View className={`shadow-md w-full h-16 px-4 rounded-2xl
+      <Text className={`text-base ml-2 text-gray-100 font-pmedium ${props.textStyle}`}>{props.title}</Text>
+      <View className={`shadow-md w-full h-[60px] px-4 rounded-2xl
     focus:border-secondary items-center  justify-center flex-row text-black ${props.containerStyle}`}>
         <TextInput
           className={`flex-1 text-black font-psemibold text-base ${props.inputStyle}`}
