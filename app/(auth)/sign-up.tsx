@@ -7,7 +7,7 @@ import PickerRol from '@/components/picker-rol'
 import CustomButton from '@/components/custom-button'
 import { Link } from 'expo-router'
 import FormField from '@/components/text-input'
-import { Modal, PaperProvider, Portal } from 'react-native-paper'
+import { Chip, Modal, PaperProvider, Portal } from 'react-native-paper'
 import UserCode from '@/components/user-code-form'
 import { requestCodeNumber } from '@/lib/auth'
 
@@ -22,6 +22,11 @@ export interface FormUI {
 }
 
 const SignUp = () => {
+  const [loading, setLoading] = useState(false)
+
+  const [loadMessageError, setLoadMessageError] = useState(false)
+  const [messageError, setMessageError] = useState("")
+
   const [modal, setmodal] = useState(false)
   const [form, setForm] = useState<FormUI>({
     first_name: "",
@@ -33,17 +38,46 @@ const SignUp = () => {
     user_password: ""
   })
 
-  const handleButton = async() => {
+
+
+  const handleButton = async () => {
+    setLoading(true)
     const response = await requestCodeNumber(form.email)
+
+    if (!response.status) {
+      setLoadMessageError(true)
+      setMessageError(response.mensage)
+      setTimeout(() => {
+        setLoadMessageError(false)
+        setMessageError('')
+      }, 2000)
+      setLoading(false)
+      return
+    }
+    console.log(response.code)
+    setForm({ ...form, user_code: response.code })
+    setLoading(false)
     setmodal(true)
   }
 
   return (
-    <PaperProvider>
-      <Portal>
-        <Modal visible={modal} contentContainerStyle={{ padding: 20}} onDismiss={() => setmodal(false)}>
-          <View className='w-[95%] bg-white rounded-sm p-[10px] mx-auto'>
-            <Text>Enviamos un mensaje a {form.email}</Text>
+    <PaperProvider >
+      <Portal
+        theme={{ colors: { primary: "black" } }}
+      >
+        <Modal
+          visible={modal}
+          contentContainerStyle={{ padding: 20 }}
+          onDismiss={() => setmodal(false)}
+          theme={{ colors: { secondary: "black" } }}
+          style={{}}
+
+        >
+          <View className='w-[95%]  bg-[#ffffff] rounded-lg p-[10px] mx-auto h-[150px] justify-center'>
+            <View className='flex-row'>
+              <Text className='text-[13px]'>Escribe el codigo enviado a: </Text>
+              <Text className='text-[12px] font-bold'>  *******{form.email.slice(form.email.length - 4,)}</Text>
+            </View>
             <UserCode code={form.user_code} handleChangeText={(e) => setForm({ ...form, user_code: e })} />
           </View>
         </Modal>
@@ -110,9 +144,19 @@ const SignUp = () => {
               title='Registrar'
               containerStyle='mt-[20px]'
               handlePress={() => handleButton()}
-              isLoading={false}
+              isLoading={loading}
               textStyle=''
             />
+
+            {loadMessageError && (
+              <Chip
+                icon="information"
+                className='mt-[5px] '
+
+                onPress={() => console.log('Pressed')}>
+                {messageError}
+              </Chip>
+            )}
             <View className='items-center mt-[20px]'>
               <Text className='text-white text-sm tracking-tighter'>Ya tienes una cuenta?</Text>
               <Link href={'/(auth)/sign-in'} className='text-white text-lg underline font-pmedium'>Inicia sesion</Link>

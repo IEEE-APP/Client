@@ -49,10 +49,13 @@ const login = async (email: string, password: string) => {
 
 const requestCodeNumber = async (email: string) => {
   try {
-    const data = await axios.get('https://smart-learn-backend.vercel.app/api/generateCode')
-    console.log(data)
-  } catch (error:any) {
-    console.log(error.response.data.message)
+    const data = await axios.post('https://smart-learn-backend.vercel.app/api/generateCode', {
+      email
+    })
+    return { status: true, code: data.data.code, mensage: data.data.mensage }
+    console.log(data.data)
+  } catch (error: any) {
+    return { status: false, mensage: error.response.data.message, code: null }
   }
 }
 

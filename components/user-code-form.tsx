@@ -10,10 +10,10 @@ export interface UserCodeUi {
 
 const UserCode = (props: UserCodeUi) => {
   return (
-    <View className='h-[100px] w-full shadow-md text-black rounded-2xl flex-col'>
+    <View className='w-full rounded-2xl flex-col'>
       <TextInput
         keyboardType='default'
-        className='border  text-black m-0  bg-white font-psemibold h-[40px] mt-2'
+        className='text-black shadow-md m-0 bg-[#f2f2f2] font-psemibold h-[30px] mt-2'
         value={props.code}
         onChangeText={(e) => props.handleChangeText(e)}
       />
