@@ -43,7 +43,7 @@ const login = async (email: string, password: string) => {
     })
     return { status: true, info: data.data.user }
   } catch (error: any) {
-    return { status: false, info:error.response.data.message }
+    return { status: false, info: error.response.data.message }
   }
 }
 

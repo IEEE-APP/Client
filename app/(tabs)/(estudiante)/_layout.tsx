@@ -7,8 +7,8 @@ import CustomDrawerContent from '@/app/CustomDrawerContent';
 import { useGlobalContext } from '@/context/GlovalProvider';
 
 const TabIcon = ({ icon, color, name, focused }: { icon: ImageSourcePropType | undefined, color: string, name: string, focused: boolean }) => {
-   const {credentials} = useGlobalContext()
-   return (
+  const { credentials } = useGlobalContext()
+  return (
     <View className='items-center justify-center gap-1'>
       <Image
         source={icon}
@@ -41,7 +41,7 @@ const TabsStudent = () => {
       <Tabs.Screen
         name='home'
         options={{
-          title: "Homes",
+          title: "Home",
           headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <TabIcon

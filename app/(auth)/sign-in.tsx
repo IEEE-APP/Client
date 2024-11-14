@@ -41,8 +41,14 @@ const SignIn = () => {
 
     setCredentials(loginResponse.info)
     await storeData(loginResponse.info.email)
-    const redirecTo = loginResponse.info.degree
     setLoading(false)
+
+    const redirecTo = loginResponse.info.degree
+    console.log(redirecTo)
+    if (redirecTo === undefined) {
+      router.replace(`/(tabs)/(profesor)/home` as Href<string | object>)
+      return;
+    }
     router.replace(`/(tabs)/(${redirecTo})/home` as Href<string | object>)
 
   }
