@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { clearToken, getCurrentUser, getData } from '../lib/auth';
+import { getSessionData } from '../lib/auth';
 import axios from 'axios';
 import { Href, router } from 'expo-router';
 
@@ -24,8 +24,8 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [credentials, setCredentials] = useState<CredentialsUI | undefined>(undefined)
 
   const verifyIfExistToken = async () => {
-    const data = await getData()
-    return data;
+    const getSession = await getSessionData()
+    return getSession
   }
 
   useEffect(() => {
@@ -33,12 +33,18 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
     verifyIfExistToken()
       .then(async (token: any) => {
         if (token) {
-          const response = await getCredentias(token)
-          router.replace(`/(tabs)/(${response})/home` as Href<string | object>)
+          // console.log(token.degree)
+          setCredentials(token)
+          if (token.degree === undefined) {
+            router.replace(`/(tabs)/(profesor)/home` as Href<string | object>)
+            return
+          }
+          router.replace(`/(tabs)/(estudiante)/home` as Href<string | object>)
+          
         }
       })
       .catch((error: any) => {
-        console.log('somethinf worn with the database')
+        console.log('somethinf worn with the database', error)
       })
   }, [])
 

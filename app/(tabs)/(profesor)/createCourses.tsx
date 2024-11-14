@@ -7,14 +7,26 @@ import ProfrsorInfo from "@/components/(profesor_view)/info";
 import { images } from "@/constants";
 import FormField from "@/components/text-input";
 import { router } from "expo-router";
+import { useGlobalContext } from "@/context/GlovalProvider";
+import { createMateria } from "@/lib/profesor/repository";
 
 const createCourses = () => {
+
+  const { credentials } = useGlobalContext()
   const [form, setForm] = useState({
     materia: "",
     seccion: "",
     vacantes: "",
     descripcion: "",
   });
+
+  const handleSubmit = async (id: number, class_name: string) => {
+    const response = await createMateria(id, class_name)
+    if (!response.status) {
+      console.log(response)
+    }
+  }
+
   return (
     <SafeAreaView className="bg-primary min-h-screen px-4 py-[40px]">
       <View className="relative flex-1">
@@ -28,7 +40,7 @@ const createCourses = () => {
             />
             <View className="absolute top-0 left-[80px] right-0 bottom-0 justify-center items-center">
               <Text className="text-[30px] tracking-tighter uppercase font-plight">
-                Crear materia
+                Crear materia {credentials?.user_id}
               </Text>
             </View>
           </View>
@@ -87,7 +99,7 @@ const createCourses = () => {
             </TouchableOpacity>
             <TouchableOpacity
               className="bg-[#5d53e2] px-3 py-1 rounded-md"
-              onPress={() => router.push("/(profesor)/bookmark")} // Navegar a la ruta "home"
+              onPress={() => handleSubmit(credentials?.user_id as number, form.materia)}
             >
               <Text className="text-white">Agregar</Text>
             </TouchableOpacity>

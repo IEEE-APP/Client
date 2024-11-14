@@ -8,7 +8,7 @@ import CustomButton from '@/components/custom-button'
 
 
 import axios from 'axios'
-import { getData, login, storeData } from '@/lib/auth'
+import { login } from '@/lib/auth'
 import { useGlobalContext } from '@/context/GlovalProvider'
 import { Chip } from 'react-native-paper'
 
@@ -40,7 +40,6 @@ const SignIn = () => {
     }
 
     setCredentials(loginResponse.info)
-    await storeData(loginResponse.info.email)
     setLoading(false)
 
     const redirecTo = loginResponse.info.degree

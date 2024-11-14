@@ -1,39 +1,36 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// TODO: implement with the jwt of the db
-const storeData = async (value: any) => {
+const saveSessionData = async (sessionData: any) => {
   try {
-    await AsyncStorage.setItem('my-key', value);
-  } catch (e) {
-    // saving error
-  }
-};
-
-// TODO: use inside the context to redirect the home page
-const getData = async () => {
-  try {
-    const value = await AsyncStorage.getItem('my-key');
-    if (value !== null) {
-      // value previously stored
-    }
-
-    return value;
-  } catch (e) {
-    // error reading value
-  }
-};
-
-// TODO: call it when we sign-out
-const clearToken = async () => {
-  try {
-    await AsyncStorage.removeItem('my-key')
+    const jsonData = JSON.stringify(sessionData);
+    await AsyncStorage.setItem('@session_data', jsonData);
+    return;
+    console.log('Datos de sesión guardados');
   } catch (error) {
-    console.error('Error clearing token', error);
+    console.error('Error al guardar los datos de sesión', error);
   }
-}
+};
 
-const getCurrentUser = async () => { }
+const getSessionData = async () => {
+  try {
+    const jsonData = await AsyncStorage.getItem('@session_data');
+    return jsonData != null ? JSON.parse(jsonData) : null;
+  } catch (error) {
+    console.error('Error al obtener los datos de sesión', error);
+    return null;
+  }
+};
+
+const clearSessionData = async () => {
+  try {
+    await AsyncStorage.removeItem('@session_data');
+    console.log('Sesión cerrada');
+  } catch (error) {
+    console.error('Error al cerrar sesión', error);
+  }
+};
+
 
 const login = async (email: string, password: string) => {
   try {
@@ -41,8 +38,10 @@ const login = async (email: string, password: string) => {
       email: email,
       user_password: password
     })
+    await saveSessionData(data.data.user)
     return { status: true, info: data.data.user }
   } catch (error: any) {
+    console.log("erorr on catc:: " + error)
     return { status: false, info: error.response.data.message }
   }
 }
@@ -59,4 +58,4 @@ const requestCodeNumber = async (email: string) => {
   }
 }
 
-export { getCurrentUser, clearToken, getData, storeData, login, requestCodeNumber }
+export { login, requestCodeNumber, getSessionData, saveSessionData, clearSessionData }
