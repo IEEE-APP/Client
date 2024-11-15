@@ -1,4 +1,6 @@
-const provideCards = () => {
+import axios from "axios";
+
+export const provideCards = () => {
   const cards = [
     { label: "Resolver Ejercicio", id: 1, img: require('../../assets/images/create.png'), redirect: 'resolver' },
     { label: "Materias", id: 2, img: require('../../assets/images/materias.png'), redirect: 'courses' },
@@ -10,4 +12,15 @@ const provideCards = () => {
   return cards;
 }
 
-export default provideCards;
+export const joinClassRoom = async (token: string, userId: number) => {
+  try {
+    const data = await axios.post('https://smart-learn-backend.vercel.app/api/joinClassroom', {
+      token,
+      student_id: userId
+    })
+
+    return { status: true, mensage: data.data.mensage }
+  } catch (error: any) {
+    return { status: false, mensage: error.response.data.message }
+  }
+}

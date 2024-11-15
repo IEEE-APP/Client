@@ -5,6 +5,7 @@ import { icons, images } from "@/constants";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import CustomDrawerContent from '@/app/CustomDrawerContent';
 import { useGlobalContext } from '@/context/GlovalProvider';
+import { StatusBar } from 'expo-status-bar';
 
 const TabIcon = ({ icon, color, name, focused }: { icon: ImageSourcePropType | undefined, color: string, name: string, focused: boolean }) => {
   const { credentials } = useGlobalContext()

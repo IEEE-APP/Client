@@ -1,9 +1,10 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import provideCards from '@/lib/student/cards'
+import {provideCards} from '@/lib/student/cards'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Info from '@/components/(student_view)/Info'
 import Cards from '@/components/(home)/cards'
+import { StatusBar } from 'expo-status-bar'
 
 const Home = () => {
   const cards = provideCards();
@@ -30,6 +31,7 @@ const Home = () => {
           numColumns={2}
         />
       </View>
+      <StatusBar backgroundColor='#282c34' style='light' />
     </SafeAreaView>
   )
 }

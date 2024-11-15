@@ -9,10 +9,14 @@ import FormField from "@/components/text-input";
 import { router } from "expo-router";
 import { useGlobalContext } from "@/context/GlovalProvider";
 import { createMateria } from "@/lib/profesor/repository";
+import { Chip } from "react-native-paper";
 
 const createCourses = () => {
 
   const { credentials } = useGlobalContext()
+  const [messageError, setmessageError] = useState('')
+  const [messageErrorStatus, setMessageErrorStatus] = useState(false)
+
   const [form, setForm] = useState({
     materia: "",
     seccion: "",
@@ -22,9 +26,19 @@ const createCourses = () => {
 
   const handleSubmit = async (id: number, class_name: string) => {
     const response = await createMateria(id, class_name)
+    
+    //TODO: almacenar en el context
+    console.log(response.data)
     if (!response.status) {
-      console.log(response)
+      setmessageError(response.data)
+      setMessageErrorStatus(true)
+      setTimeout(() => {
+        setmessageError('')
+        setMessageErrorStatus(false)
+      }, 1000)
+      return;
     }
+    router.back()
   }
 
   return (
@@ -100,10 +114,20 @@ const createCourses = () => {
             <TouchableOpacity
               className="bg-[#5d53e2] px-3 py-1 rounded-md"
               onPress={() => handleSubmit(credentials?.user_id as number, form.materia)}
+              disabled={messageErrorStatus}
             >
               <Text className="text-white">Agregar</Text>
             </TouchableOpacity>
           </View>
+          {messageErrorStatus && (
+            <Chip
+              className='mt-[10px] '
+              icon="information"
+              onPress={() => console.log('Pressed')}
+            >
+              {messageError}
+            </Chip>
+          )}
         </View>
       </View>
     </SafeAreaView>
