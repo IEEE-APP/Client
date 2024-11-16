@@ -19,8 +19,8 @@ export const joinClassRoom = async (token: string, userId: number) => {
       student_id: userId
     })
 
-    return { status: true, mensage: data.data.mensage }
+    return { status: true, mensage: data.data.mensage, data: data.data.classroom }
   } catch (error: any) {
-    return { status: false, mensage: error.response.data.message }
+    return { status: false, mensage: error.response.data.message, data:null }
   }
 }

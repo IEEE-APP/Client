@@ -5,7 +5,9 @@ export interface GLobalContexrProps {
   changeUser: (state: any) => void
   isLoading: boolean;
   setCredentials: (credentials: CredentialsUI) => void;
-  credentials: CredentialsUI | undefined
+  credentials: CredentialsUI | undefined;
+  materiasStudent?:Array<any>;
+  setMateriaStudent?:(e:any)=>void;
 }
 
 export interface CredentialsUI {

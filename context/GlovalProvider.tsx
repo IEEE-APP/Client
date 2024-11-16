@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { getSessionData } from '../lib/auth';
-import axios from 'axios';
 import { Href, router } from 'expo-router';
 
 import { GLobalContexrProps, CredentialsUI } from '@/lib/interfaces/useInterfaces';
@@ -13,7 +12,8 @@ const GlobalContext = createContext<GLobalContexrProps>({
   isLoading: false,
   setCredentials: (credentials: CredentialsUI) => { },
   credentials: undefined,
-
+  materiasStudent: [],
+  setMateriaStudent: (e:any) => { }
 });
 
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
@@ -22,10 +22,15 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setuser] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [credentials, setCredentials] = useState<CredentialsUI | undefined>(undefined)
+  const [materiasStudent, setMateriaStudent] = useState<any>([])
 
   const verifyIfExistToken = async () => {
     const getSession = await getSessionData()
     return getSession
+  }
+
+  const changeMateriaStudent = (materia: any) => {
+    setMateriaStudent([...materiasStudent, materia])
   }
 
   useEffect(() => {
@@ -40,7 +45,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
             return
           }
           router.replace(`/(tabs)/(estudiante)/home` as Href<string | object>)
-          
+
         }
       })
       .catch((error: any) => {
@@ -70,7 +75,9 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
         changeUser,
         isLoading,
         setCredentials: (e) => { getCredentias(e) },
-        credentials
+        credentials,
+        materiasStudent,
+        setMateriaStudent:(e:any)=>{changeMateriaStudent(e)}
       }}
     >
       {children}

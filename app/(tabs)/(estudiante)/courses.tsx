@@ -5,65 +5,30 @@ import { StatusBar } from 'expo-status-bar'
 import { useGlobalContext } from '@/context/GlovalProvider'
 import FormField from '@/components/text-input'
 import UserCode from '@/components/user-code-form'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { joinClassRoom } from '@/lib/student/cards'
 import { ActivityIndicator, Chip, MD2Colors } from 'react-native-paper'
+import Info from '@/components/(student_view)/Info'
+import NoMaterias from '@/components/(student_view)/no-materias'
+import MateriasView from '@/components/(student_view)/materias-view'
 
 const courses = () => {
-  const { credentials } = useGlobalContext()
-  const [code, setcode] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [messageErrorStatus, setMessageErrorStatus] = useState(false)
-  const [messageError, setMessageError] = useState("")
 
-  const handleSubmit = async (token: string, userId: number) => {
-    setLoading(true)
-    const response = await joinClassRoom(token, userId)
-    if (!response.status) {
-      setLoading(false)
-      setMessageError(response.mensage)
-      setMessageErrorStatus(true)
-      setTimeout(() => {
-        setMessageError('')
-        setMessageErrorStatus(false)
-      }, 1000)
-      return;
-    }
-  }
+  const { materiasStudent } = useGlobalContext()
+
 
   return (
-    <SafeAreaView className='bg-primary text-white min-h-screen items-center justify-center'>
-      <View className='items-center'>
-        <Text className='text-white text-[20px] tracking-tighter font-pbold'>To join a materia, please insert the code:</Text>
-      </View>
-      <View className='bg-white rounded-md px-3 py-1 w-[70%]'>
-        <TextInput
-          className='text-black '
-          onChangeText={(e) => setcode(e)}
-          value={code}
-        />
-      </View>
-      <TouchableOpacity
-        className={`bg-white px-3 mt-[5px]  py-1 rounded-md flex-row`}
-        onPress={() => handleSubmit(code, credentials?.user_id as number)}
-        disabled={loading}
-      >
-        <Text>Submit code</Text>
-        {loading && (
-          <ActivityIndicator color={MD2Colors.black} />
+    <SafeAreaView className='bg-primary text-white min-h-screen px-4 py-[40px]'>
+      <Info />
+      <View className='mt-[10px] bg-white flex-1  rounded-md'>
+        <Text className='text-center text-[40px] font-bold tracking-tighter'>Materias</Text>
+        {materiasStudent?.length === 0 ? (
+          <NoMaterias />
         )
-        }
-      </TouchableOpacity>
-
-      {messageErrorStatus && (
-        <Chip
-          className='mt-[5px] '
-          icon="information"
-          onPress={() => console.log('Pressed')}
-        >
-          {messageError}
-        </Chip>
-      )}
+        :
+        <MateriasView />
+      }
+      </View>
       <StatusBar backgroundColor='#282c34' style='light' />
     </SafeAreaView>
   )
