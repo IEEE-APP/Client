@@ -8,6 +8,8 @@ export interface GLobalContexrProps {
   credentials: CredentialsUI | undefined;
   materiasStudent?:Array<any>;
   setMateriaStudent?:(e:any)=>void;
+  materiaProfesor?:Array<any>;
+  setMateriaProfesor?:(e:any)=>void;
 }
 
 export interface CredentialsUI {

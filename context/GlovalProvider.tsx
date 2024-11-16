@@ -13,7 +13,9 @@ const GlobalContext = createContext<GLobalContexrProps>({
   setCredentials: (credentials: CredentialsUI) => { },
   credentials: undefined,
   materiasStudent: [],
-  setMateriaStudent: (e:any) => { }
+  setMateriaStudent: (e: any) => { },
+  materiaProfesor: [],
+  setMateriaProfesor: (e: any) => { },
 });
 
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
@@ -23,6 +25,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [credentials, setCredentials] = useState<CredentialsUI | undefined>(undefined)
   const [materiasStudent, setMateriaStudent] = useState<any>([])
+  const [materiaProfesor, setmateriaProfesor] = useState<any>([])
 
   const verifyIfExistToken = async () => {
     const getSession = await getSessionData()
@@ -31,6 +34,10 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 
   const changeMateriaStudent = (materia: any) => {
     setMateriaStudent([...materiasStudent, materia])
+  }
+
+  const chnageMateriaProfesor = (materia: any) => {
+    setmateriaProfesor([...materiaProfesor, materia])
   }
 
   useEffect(() => {
@@ -77,7 +84,9 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
         setCredentials: (e) => { getCredentias(e) },
         credentials,
         materiasStudent,
-        setMateriaStudent:(e:any)=>{changeMateriaStudent(e)}
+        setMateriaStudent: (e: any) => { changeMateriaStudent(e) },
+        materiaProfesor,
+        setMateriaProfesor: (e: any) => { chnageMateriaProfesor(e) }
       }}
     >
       {children}

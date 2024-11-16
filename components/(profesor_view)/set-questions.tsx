@@ -2,6 +2,7 @@ import { Button, FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity,
 import React, { useState } from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { PreguntasUI2 } from '@/app/(tabs)/(profesor)/create';
 
 interface PreguntaUI {
   question: string, image: boolean, uri: string
@@ -13,6 +14,7 @@ interface Pregunta extends PreguntaUI {
 
 interface SetQuestionsUi {
   sendImageViw: (uri: string) => void;
+  changeQuestions: (question: PreguntasUI2) => void;
 }
 
 const SetQuestions = (props: SetQuestionsUi) => {
@@ -39,7 +41,12 @@ const SetQuestions = (props: SetQuestionsUi) => {
   };
   const addQuestion = () => {
     const newQuestion = { question: pregunta?.question as string, id: questions?.length + 1, image: pregunta?.image || false, uri: pregunta?.uri || '' }
+    props.changeQuestions({ type: "Q2", questions: (pregunta?.question || image) as string })
     setQuestions([...questions, newQuestion])
+    setPregunta(undefined)
+  }
+
+  const clearQuestions = ()=>{
     setPregunta(undefined)
   }
   return (

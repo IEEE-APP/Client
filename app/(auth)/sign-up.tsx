@@ -9,7 +9,7 @@ import { Link } from 'expo-router'
 import FormField from '@/components/text-input'
 import { Chip, Modal, PaperProvider, Portal } from 'react-native-paper'
 import UserCode from '@/components/user-code-form'
-import { requestCodeNumber } from '@/lib/auth'
+import { register, requestCodeNumber } from '@/lib/auth'
 
 export interface FormUI {
   email: string,
@@ -43,7 +43,6 @@ const SignUp = () => {
   const handleButton = async () => {
     setLoading(true)
     const response = await requestCodeNumber(form.email)
-
     if (!response.status) {
       setLoadMessageError(true)
       setMessageError(response.mensage)
@@ -54,10 +53,14 @@ const SignUp = () => {
       setLoading(false)
       return
     }
-    console.log(response.code)
     setForm({ ...form, user_code: response.code })
     setLoading(false)
     setmodal(true)
+  }
+
+  const handleSumitAll = async () => {
+    console.log("forms ok>: ", form)
+    const response = await register(form)
   }
 
   return (
@@ -78,7 +81,11 @@ const SignUp = () => {
               <Text className='text-[13px]'>Escribe el codigo enviado a: </Text>
               <Text className='text-[12px] font-bold'>  *******{form.email.slice(form.email.length - 4,)}</Text>
             </View>
-            <UserCode code={form.user_code} handleChangeText={(e) => setForm({ ...form, user_code: e })} />
+            <UserCode
+              code={form.user_code}
+              handleChangeText={(e) => setForm({ ...form, user_code: e })}
+              handleSubmit={handleSumitAll}
+            />
           </View>
         </Modal>
       </Portal>

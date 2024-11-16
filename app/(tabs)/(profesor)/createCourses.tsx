@@ -13,7 +13,7 @@ import { Chip } from "react-native-paper";
 
 const createCourses = () => {
 
-  const { credentials } = useGlobalContext()
+  const { credentials, setMateriaProfesor } = useGlobalContext()
   const [messageError, setmessageError] = useState('')
   const [messageErrorStatus, setMessageErrorStatus] = useState(false)
 
@@ -26,9 +26,6 @@ const createCourses = () => {
 
   const handleSubmit = async (id: number, class_name: string) => {
     const response = await createMateria(id, class_name)
-    
-    //TODO: almacenar en el context
-    console.log(response.data)
     if (!response.status) {
       setmessageError(response.data)
       setMessageErrorStatus(true)
@@ -38,7 +35,9 @@ const createCourses = () => {
       }, 1000)
       return;
     }
+    setMateriaProfesor!(response.data)
     router.back()
+    //TODO: almacenar en el context
   }
 
   return (

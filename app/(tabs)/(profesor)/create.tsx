@@ -5,18 +5,43 @@ import ProfrsorInfo from '@/components/(profesor_view)/info'
 import { images } from '@/constants'
 import FormField from '@/components/text-input'
 import SetQuestions from '@/components/(profesor_view)/set-questions'
+import { createExercice } from '@/lib/profesor/repository'
+import { router } from 'expo-router'
+
+export interface FormUI {
+  materia: string,
+  tema: string,
+  preguntas: Array<PreguntasUI2>
+}
+
+export interface PreguntasUI2 {
+  type: string,
+  questions: string
+}
 
 const Create = () => {
 
-  const [form, setForm] = useState({
-    materia: '',
-    tema: '',
-  })
+  const [form, setForm] = useState<FormUI>({ materia: '', tema: "", preguntas: [] })
 
   const [image, setImage] = useState('')
 
   const sendImageViw = (uri: string) => {
     setImage(uri)
+  }
+
+  const addQuestions = (question: PreguntasUI2) => {
+    setForm({ ...form, preguntas: [...form.preguntas, question] })
+    console.log(question)
+  }
+
+  const handleSumit = async() => {
+    const response = await createExercice(form)
+    //  {"code": 200, "msg": {"__v": 0, "_id": "6738c6552b4efa9193bb45cd", "description": "Jaja", "materia": "Geometry", "preguntas": [[Object], [Object]], "secion": "A", "vacantes": 12}, "status": true}
+    
+    if(response.status === true){
+      console.log("passing")
+      setForm({ materia: '', tema: "", preguntas: [] })
+    }
   }
 
   return (
@@ -55,13 +80,16 @@ const Create = () => {
               password={false}
               containerStyle='bg-[#eeeeee] border border-1 border-black'
             />
-            <SetQuestions sendImageViw={sendImageViw} />
+            <SetQuestions sendImageViw={sendImageViw} changeQuestions={addQuestions} />
           </View>
           <View className='my-auto flex-row justify-between'>
             <TouchableOpacity className='bg-[#ff4d4d] rounded-md px-3 py-1'>
               <Text className='text-white'>Volver</Text>
             </TouchableOpacity>
-            <TouchableOpacity className='bg-[#5d53e2] px-3 py-1 rounded-md'>
+            <TouchableOpacity
+              className='bg-[#5d53e2] px-3 py-1 rounded-md'
+              onPress={() => handleSumit()}
+            >
               <Text className='text-white'>Publicar</Text>
             </TouchableOpacity>
           </View>
