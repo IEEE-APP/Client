@@ -5,7 +5,7 @@ import { images } from '@/constants'
 import TextInputIcons from '@/components/text-input-icons'
 import PickerRol from '@/components/picker-rol'
 import CustomButton from '@/components/custom-button'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
 import FormField from '@/components/text-input'
 import { Chip, Modal, PaperProvider, Portal } from 'react-native-paper'
 import UserCode from '@/components/user-code-form'
@@ -61,6 +61,9 @@ const SignUp = () => {
   const handleSumitAll = async () => {
     console.log("forms ok>: ", form)
     const response = await register(form)
+    if(response.status){
+      router.push('/(auth)/sign-in')
+    }
   }
 
   return (

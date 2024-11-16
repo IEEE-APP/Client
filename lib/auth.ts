@@ -34,11 +34,18 @@ const clearSessionData = async () => {
 const register = async (data: any) => {
   try {
     const response = await axios.post('https://smart-learn-backend.vercel.app/api/create/Teacher', {
-      data
+      email: data.email,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      degree: data.degree,
+      user_password: data.user_password,
+      phone_number: data.phone_number,
+      user_code: String(data.user_code),
     })
-    console.log(response)
+    return { status: true, msg: response.data.teacher }
   } catch (error: any) {
     console.log(error.response.data)
+    return { status: true, msg: error.response.data }
   }
 }
 
@@ -67,4 +74,4 @@ const requestCodeNumber = async (email: string) => {
   }
 }
 
-export { login, requestCodeNumber, getSessionData, saveSessionData, clearSessionData,register }
+export { login, requestCodeNumber, getSessionData, saveSessionData, clearSessionData, register }
